@@ -1,12 +1,21 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic page settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title shown in the browser tab -->
     <title>COMP 3512 Assignment 2 - Single Page Shop</title>
+
     <style>
+        /* Apply border-box sizing to all elements
+           so padding and borders are included in total width/height */
         * {
             box-sizing: border-box;
         }
 
+        /* Page-wide body styles */
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
@@ -14,12 +23,15 @@
             color: #1f2937;
         }
 
+        /* Wrapper for the full page layout
+           lets footer stay at the bottom */
         .site-wrapper {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
+        /* Header bar at the top of the page */
         header {
             background-color: #dce9f8;
             border-bottom: 2px solid #b8c7db;
@@ -28,6 +40,7 @@
             z-index: 20;
         }
 
+        /* Shared inner container for header, main content, and footer */
         .header-inner,
         .footer-inner,
         .main-inner {
@@ -36,6 +49,8 @@
             margin: 0 auto;
         }
 
+        /* Layout for header content:
+           logo on left, nav in middle, cart on right */
         .header-inner {
             display: flex;
             align-items: center;
@@ -44,6 +59,7 @@
             padding: 16px 0;
         }
 
+        /* Store logo text */
         .logo {
             font-size: 1.3rem;
             font-weight: 700;
@@ -51,6 +67,7 @@
             color: #0f172a;
         }
 
+        /* Navigation button container */
         nav {
             display: flex;
             align-items: center;
@@ -58,6 +75,7 @@
             flex-wrap: wrap;
         }
 
+        /* Ensure these clickable elements all use the same font */
         .nav-button,
         .cart-button,
         .primary-button,
@@ -76,6 +94,7 @@
             font-family: inherit;
         }
 
+        /* Reset default button/link appearance for custom styling */
         .nav-button,
         .cart-button,
         .title-button,
@@ -88,6 +107,7 @@
             cursor: pointer;
         }
 
+        /* Navigation buttons in the header */
         .nav-button {
             padding: 8px 12px;
             border-radius: 999px;
@@ -95,11 +115,13 @@
             color: #0f172a;
         }
 
+        /* Highlight nav button on hover or when active */
         .nav-button:hover,
         .nav-button.active {
             background-color: #ffffff;
         }
 
+        /* Shopping cart button in the header */
         .cart-button {
             position: relative;
             padding: 8px 12px;
@@ -109,6 +131,7 @@
             min-width: 76px;
         }
 
+        /* Blue badge showing number of items in cart */
         .cart-badge {
             display: inline-flex;
             align-items: center;
@@ -124,15 +147,19 @@
             font-weight: 700;
         }
 
+        /* Main page content grows to push footer down */
         main {
             flex: 1;
             padding: 28px 0 36px;
         }
 
+        /* Each SPA view is hidden by default;
+           JavaScript will show the active one */
         .view {
             display: none;
         }
 
+        /* Home page hero section */
         .hero {
             background: linear-gradient(135deg, #e8f0fb 0%, #d2e2f6 100%);
             border: 1px solid #c7d6ea;
@@ -141,6 +168,7 @@
             margin-bottom: 26px;
         }
 
+        /* Main heading inside hero section */
         .hero h1 {
             margin: 0 0 12px;
             font-size: 2.4rem;
@@ -148,6 +176,7 @@
             color: #0f172a;
         }
 
+        /* Paragraph text inside hero section */
         .hero p {
             margin: 0 0 20px;
             max-width: 720px;
@@ -155,18 +184,21 @@
             color: #334155;
         }
 
+        /* Section heading style */
         .section-title {
             margin: 0 0 14px;
             font-size: 1.4rem;
             color: #0f172a;
         }
 
+        /* Section subtitle style */
         .section-subtitle {
             margin: 0 0 22px;
             color: #475569;
             line-height: 1.5;
         }
 
+        /* Grid layouts used in different sections */
         .category-grid,
         .featured-grid,
         .product-grid {
@@ -174,19 +206,23 @@
             gap: 18px;
         }
 
+        /* Category cards layout */
         .category-grid {
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             margin-bottom: 28px;
         }
 
+        /* Featured products layout */
         .featured-grid {
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         }
 
+        /* Browse products layout */
         .product-grid {
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
 
+        /* Shared card styles */
         .category-card,
         .featured-card,
         .product-card {
@@ -196,11 +232,13 @@
             box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
         }
 
+        /* Category card spacing and alignment */
         .category-card {
             padding: 22px 14px;
             text-align: center;
         }
 
+        /* Slight lift animation on hover */
         .category-card:hover,
         .featured-card:hover,
         .product-card:hover {
@@ -208,6 +246,7 @@
             transition: transform 0.15s ease;
         }
 
+        /* Decorative category icon block */
         .category-icon {
             width: 64px;
             height: 64px;
@@ -216,16 +255,19 @@
             background: linear-gradient(135deg, #dce9f8 0%, #bfd4ef 100%);
         }
 
+        /* Category label text */
         .category-name {
             font-weight: 700;
             color: #0f172a;
         }
 
+        /* Prevent content from overflowing card edges */
         .featured-card,
         .product-card {
             overflow: hidden;
         }
 
+        /* Shared layout for product image placeholders */
         .product-image,
         .featured-image,
         .main-product-image,
@@ -239,6 +281,7 @@
             border: none;
         }
 
+        /* Card image areas */
         .featured-image,
         .product-image {
             width: 100%;
@@ -246,11 +289,13 @@
             padding: 18px;
         }
 
+        /* Inner spacing for card text/content */
         .featured-content,
         .product-card-content {
             padding: 18px;
         }
 
+        /* Product/featured titles */
         .product-title,
         .featured-title {
             margin: 0 0 8px;
@@ -259,6 +304,7 @@
             color: #0f172a;
         }
 
+        /* Price text styling */
         .product-price,
         .featured-price,
         .single-price {
@@ -266,11 +312,13 @@
             color: #1d4ed8;
         }
 
+        /* Reusable muted text color */
         .muted-text {
             color: #64748b;
             font-size: 0.92rem;
         }
 
+        /* Footer area inside cards containing buttons/prices */
         .product-card-footer,
         .featured-footer {
             display: flex;
@@ -280,22 +328,27 @@
             margin-top: 14px;
         }
 
+        /* Product title button takes full width */
         .title-button {
             padding: 0;
             text-align: left;
             width: 100%;
         }
 
+        /* Underline product title when hovered */
         .title-button:hover .product-title,
         .title-button:hover .featured-title {
             text-decoration: underline;
         }
 
+        /* Product image button fills full width */
         .image-button {
             display: block;
             width: 100%;
         }
 
+        /* Responsive layout for browse page:
+           filters on left, results on right */
         .browse-layout {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -303,6 +356,7 @@
             align-items: start;
         }
 
+        /* Shared panel/card look */
         .panel,
         .single-panel,
         .cart-panel {
@@ -312,12 +366,14 @@
             box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
         }
 
+        /* Filter panel spacing and sticky behavior */
         .filters-panel {
             padding: 22px 18px;
             position: sticky;
             top: 96px;
         }
 
+        /* Shared panel heading styling */
         .filters-panel h2,
         .results-panel h2,
         .cart-panel h2,
@@ -326,18 +382,21 @@
             color: #0f172a;
         }
 
+        /* Individual filter section */
         .filter-group {
             border-top: 1px solid #e2e8f0;
             padding-top: 16px;
             margin-top: 16px;
         }
 
+        /* Filter section title */
         .filter-group h3 {
             margin: 0 0 12px;
             font-size: 1rem;
             color: #334155;
         }
 
+        /* Label row for each filter checkbox */
         .filter-option {
             display: flex;
             align-items: center;
@@ -347,6 +406,7 @@
             color: #334155;
         }
 
+        /* Color circles used in filters and cart/product views */
         .color-dot,
         .selected-color-dot,
         .cart-color-dot,
@@ -358,15 +418,19 @@
             border: 1px solid rgba(15, 23, 42, 0.25);
         }
 
+        /* Slightly smaller color dot for filter list */
         .option-color-dot {
             width: 14px;
             height: 14px;
         }
 
+        /* Results panel spacing */
         .results-panel {
             padding: 22px;
         }
 
+        /* Top area of browse results:
+           count on one side, sorting on the other */
         .results-topbar {
             display: flex;
             align-items: center;
@@ -376,11 +440,13 @@
             flex-wrap: wrap;
         }
 
+        /* Results count text */
         .results-count {
             font-weight: 700;
             color: #0f172a;
         }
 
+        /* Sorting control wrapper */
         .sort-wrap {
             display: flex;
             align-items: center;
@@ -388,6 +454,7 @@
             color: #334155;
         }
 
+        /* Shared form input styling */
         select,
         input[type="number"] {
             font-family: inherit;
@@ -399,6 +466,7 @@
             color: #0f172a;
         }
 
+        /* Area showing currently active filters */
         .active-filters-wrap {
             display: flex;
             align-items: center;
@@ -407,6 +475,7 @@
             margin-bottom: 16px;
         }
 
+        /* Pill-shaped active filter buttons */
         .filter-pill {
             display: inline-flex;
             align-items: center;
@@ -420,6 +489,7 @@
             font-size: 0.9rem;
         }
 
+        /* Shared button base styles */
         .secondary-button,
         .primary-button,
         .small-button,
@@ -431,6 +501,7 @@
             transition: opacity 0.15s ease;
         }
 
+        /* Simple hover effect for buttons */
         .secondary-button:hover,
         .primary-button:hover,
         .small-button:hover,
@@ -439,12 +510,14 @@
             opacity: 0.92;
         }
 
+        /* Secondary button styling */
         .secondary-button {
             background-color: #e2e8f0;
             color: #0f172a;
             padding: 10px 14px;
         }
 
+        /* Main action button styling */
         .primary-button {
             background-color: #2563eb;
             color: #ffffff;
@@ -452,6 +525,7 @@
             font-weight: 700;
         }
 
+        /* Smaller action buttons */
         .small-button,
         .remove-button {
             background-color: #eff6ff;
@@ -460,6 +534,7 @@
             font-weight: 700;
         }
 
+        /* Small square remove button */
         .remove-button {
             width: 34px;
             height: 34px;
@@ -467,6 +542,7 @@
             border-radius: 10px;
         }
 
+        /* Message boxes for browse/cart feedback */
         .browse-message,
         .cart-message {
             padding: 14px 16px;
@@ -476,20 +552,24 @@
             margin-bottom: 16px;
         }
 
+        /* Utility class for hidden elements */
         .hidden-box {
             display: none;
         }
 
+        /* Single product panel spacing */
         .single-panel {
             padding: 26px;
         }
 
+        /* Breadcrumb text above single product */
         .breadcrumbs {
             margin-bottom: 18px;
             font-size: 0.92rem;
             color: #475569;
         }
 
+        /* Breadcrumb links and labels */
         .breadcrumbs a,
         .breadcrumbs span {
             color: #0f172a;
@@ -497,16 +577,19 @@
             text-decoration: underline;
         }
 
+        /* Current breadcrumb item is not underlined */
         .breadcrumbs span {
             text-decoration: none;
         }
 
+        /* Two-column layout for single product page */
         .single-grid {
             display: grid;
             grid-template-columns: 1.1fr 1fr;
             gap: 28px;
         }
 
+        /* Main image area in single product view */
         .main-product-image {
             min-height: 360px;
             border-radius: 20px;
@@ -514,38 +597,45 @@
             padding: 28px;
         }
 
+        /* Thumbnail image grid */
         .thumb-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
         }
 
+        /* Individual thumbnail appearance */
         .thumb-image {
             min-height: 92px;
             border-radius: 16px;
             padding: 10px;
         }
 
+        /* Single product title */
         .single-details h2 {
             margin-bottom: 8px;
             font-size: 1.9rem;
         }
 
+        /* Product description paragraph */
         .single-description {
             line-height: 1.65;
             color: #475569;
             margin: 16px 0;
         }
 
+        /* Rows for material, sizes, etc. */
         .detail-row {
             margin-bottom: 12px;
             color: #334155;
         }
 
+        /* Labels in detail rows */
         .detail-row strong {
             color: #0f172a;
         }
 
+        /* Spacing for control groups like size and color */
         .control-group {
             margin-top: 20px;
         }
@@ -556,12 +646,14 @@
             color: #334155;
         }
 
+        /* Layout for button groups */
         .button-row {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
 
+        /* Size and color selection buttons */
         .size-button,
         .color-button {
             cursor: pointer;
@@ -572,6 +664,7 @@
             color: #334155;
         }
 
+        /* Highlight selected option */
         .size-button.selected,
         .color-button.selected {
             border-color: #2563eb;
@@ -580,12 +673,14 @@
             font-weight: 700;
         }
 
+        /* Color button includes label + color dot */
         .color-button {
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
 
+        /* Action buttons under single product info */
         .single-actions {
             display: flex;
             align-items: center;
@@ -594,10 +689,13 @@
             flex-wrap: wrap;
         }
 
+        /* Cart panel spacing */
         .cart-panel {
             padding: 24px;
         }
 
+        /* Cart layout:
+           item list on left, summary on right */
         .cart-layout {
             display: grid;
             grid-template-columns: 1.35fr 360px;
@@ -605,12 +703,14 @@
             align-items: start;
         }
 
+        /* Vertical stack of cart items */
         .cart-items {
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
 
+        /* Grid row for each cart item */
         .cart-row {
             display: grid;
             grid-template-columns: 40px 88px 1.3fr repeat(4, minmax(70px, auto));
@@ -621,11 +721,13 @@
             padding: 14px;
         }
 
+        /* Styling for cart header row */
         .cart-heading {
             background-color: #f8fbff;
             color: #0f172a;
         }
 
+        /* Product image box inside cart */
         .cart-image {
             width: 88px;
             height: 104px;
@@ -639,28 +741,33 @@
             padding: 8px;
         }
 
+        /* Cart product title */
         .cart-item-title {
             font-weight: 700;
             color: #0f172a;
             margin-bottom: 6px;
         }
 
+        /* Smaller cart metadata text */
         .cart-meta {
             color: #64748b;
             font-size: 0.9rem;
         }
 
+        /* Centered values in cart table-like layout */
         .cart-value {
             color: #334155;
             text-align: center;
         }
 
+        /* Right-side cart summary column */
         .cart-sidebar {
             display: flex;
             flex-direction: column;
             gap: 18px;
         }
 
+        /* Summary and shipping cards */
         .summary-card,
         .shipping-card {
             border: 1px solid #d7e0ec;
@@ -675,6 +782,7 @@
             color: #0f172a;
         }
 
+        /* Individual line in order summary */
         .summary-row {
             display: flex;
             align-items: center;
@@ -683,6 +791,7 @@
             color: #334155;
         }
 
+        /* Total row at bottom of summary */
         .summary-total {
             border-top: 1px solid #cbd5e1;
             margin-top: 8px;
@@ -691,6 +800,7 @@
             color: #0f172a;
         }
 
+        /* Shipping help text */
         .shipping-note {
             margin-top: 12px;
             color: #64748b;
@@ -698,16 +808,19 @@
             line-height: 1.5;
         }
 
+        /* Checkout button wrapper */
         .checkout-wrap {
             margin-top: 10px;
         }
 
+        /* Footer styling */
         footer {
             background-color: #dce9f8;
             border-top: 2px solid #b8c7db;
             margin-top: auto;
         }
 
+        /* Footer inner layout */
         .footer-inner {
             padding: 18px 0 22px;
             display: flex;
@@ -717,11 +830,13 @@
             flex-wrap: wrap;
         }
 
+        /* Footer text styling */
         .footer-text {
             color: #334155;
             line-height: 1.6;
         }
 
+        /* Footer link group */
         .footer-links {
             display: flex;
             align-items: center;
@@ -729,6 +844,7 @@
             flex-wrap: wrap;
         }
 
+        /* Footer links styled like pills */
         .footer-link {
             padding: 8px 12px;
             border-radius: 999px;
@@ -737,6 +853,7 @@
             text-decoration: none;
         }
 
+        /* Full-screen overlay for about popup */
         .overlay {
             position: fixed;
             inset: 0;
@@ -748,6 +865,7 @@
             z-index: 40;
         }
 
+        /* Popup dialog box */
         .modal {
             width: min(760px, 100%);
             background-color: #ffffff;
@@ -757,6 +875,7 @@
             overflow: hidden;
         }
 
+        /* Popup header */
         .modal-header {
             display: flex;
             align-items: center;
@@ -772,6 +891,7 @@
             color: #0f172a;
         }
 
+        /* Popup body content */
         .modal-body {
             padding: 22px;
             line-height: 1.7;
@@ -782,17 +902,20 @@
             margin-top: 0;
         }
 
+        /* List inside popup */
         .modal-list {
             margin: 0 0 18px 20px;
             padding: 0;
         }
 
+        /* Popup footer */
         .modal-footer {
             padding: 0 22px 22px;
             display: flex;
             justify-content: flex-end;
         }
 
+        /* Close button for popup */
         .close-button {
             background-color: #e2e8f0;
             color: #0f172a;
@@ -802,6 +925,7 @@
             font-weight: 700;
         }
 
+        /* Tablet and smaller layouts */
         @media (max-width: 1080px) {
             .browse-layout,
             .single-grid,
@@ -814,6 +938,7 @@
             }
         }
 
+        /* Cart layout adjustment on medium screens */
         @media (max-width: 820px) {
             .cart-row {
                 grid-template-columns: 40px 88px 1fr;
@@ -824,6 +949,7 @@
             }
         }
 
+        /* Small screen/mobile adjustments */
         @media (max-width: 640px) {
             .header-inner {
                 flex-direction: column;
@@ -855,20 +981,30 @@
             }
         }
     </style>
-<style type="text/css" id="operaUserStyle"></style></head>
+</head>
+
 <body>
-<div class="site-wrapper">
-    <header>
-        <div class="header-inner">
-            <div class="logo">StyleShelf</div>
-            <nav>
-                <button id="nav-home" class="nav-button active" type="button">Home</button>
-                <button id="nav-browse" class="nav-button" type="button">Browse</button>
-                <button id="nav-about" class="nav-button" type="button">About</button>
-            </nav>
-            <button id="nav-cart" class="cart-button" type="button">Cart <span id="cart-count" class="cart-badge">0</span></button>
-        </div>
-    </header>
+    <!-- Main page wrapper -->
+    <div class="site-wrapper">
+
+        <!-- Header with logo, navigation, and cart button -->
+        <header>
+            <div class="header-inner">
+                <div class="logo">StyleShelf</div>
+
+                <!-- Main navigation buttons for SPA views -->
+                <nav>
+                    <button id="nav-home" class="nav-button active" type="button">Home</button>
+                    <button id="nav-browse" class="nav-button" type="button">Browse</button>
+                    <button id="nav-about" class="nav-button" type="button">About</button>
+                </nav>
+
+                <!-- Cart button with item count badge -->
+                <button id="nav-cart" class="cart-button" type="button">
+                    Cart <span id="cart-count" class="cart-badge">0</span>
+                </button>
+            </div>
+        </header>
 
     <main>
         <div class="main-inner">
@@ -985,7 +1121,9 @@
                 <li><strong>Popup:</strong> About Us dialog</li>
                 <li><strong>Technologies:</strong> HTML, CSS, JavaScript</li>
                 <li><strong>Student:</strong> Tony Nguyen</li>
-                <li><strong>Repository link:</strong> Github</li>
+                <li><strong>Repository link:</strong>
+                    <a href="https://github.com/tnguyentech/COMP-3512-Assignment-2/tree/main">GitHub Repo</a>
+                </li>
             </ul>
             <p>
                 The design uses the provided product data and keeps the required functionality inside one HTML page. Header and footer stay consistent while the content in the middle changes between views.
