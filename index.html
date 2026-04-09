@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Basic page settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Title shown in the browser tab -->
     <title>COMP 3512 Assignment 2 - Single Page Shop</title>
-
     <style>
-        /* Apply border-box sizing to all elements
-           so padding and borders are included in total width/height */
         * {
             box-sizing: border-box;
         }
 
-        /* Page-wide body styles */
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
@@ -23,15 +16,12 @@
             color: #1f2937;
         }
 
-        /* Wrapper for the full page layout
-           lets footer stay at the bottom */
         .site-wrapper {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Header bar at the top of the page */
         header {
             background-color: #dce9f8;
             border-bottom: 2px solid #b8c7db;
@@ -40,7 +30,6 @@
             z-index: 20;
         }
 
-        /* Shared inner container for header, main content, and footer */
         .header-inner,
         .footer-inner,
         .main-inner {
@@ -49,8 +38,6 @@
             margin: 0 auto;
         }
 
-        /* Layout for header content:
-           logo on left, nav in middle, cart on right */
         .header-inner {
             display: flex;
             align-items: center;
@@ -59,7 +46,6 @@
             padding: 16px 0;
         }
 
-        /* Store logo text */
         .logo {
             font-size: 1.3rem;
             font-weight: 700;
@@ -67,7 +53,6 @@
             color: #0f172a;
         }
 
-        /* Navigation button container */
         nav {
             display: flex;
             align-items: center;
@@ -75,7 +60,6 @@
             flex-wrap: wrap;
         }
 
-        /* Ensure these clickable elements all use the same font */
         .nav-button,
         .cart-button,
         .primary-button,
@@ -94,7 +78,6 @@
             font-family: inherit;
         }
 
-        /* Reset default button/link appearance for custom styling */
         .nav-button,
         .cart-button,
         .title-button,
@@ -107,7 +90,6 @@
             cursor: pointer;
         }
 
-        /* Navigation buttons in the header */
         .nav-button {
             padding: 8px 12px;
             border-radius: 999px;
@@ -115,13 +97,11 @@
             color: #0f172a;
         }
 
-        /* Highlight nav button on hover or when active */
         .nav-button:hover,
         .nav-button.active {
             background-color: #ffffff;
         }
 
-        /* Shopping cart button in the header */
         .cart-button {
             position: relative;
             padding: 8px 12px;
@@ -131,7 +111,6 @@
             min-width: 76px;
         }
 
-        /* Blue badge showing number of items in cart */
         .cart-badge {
             display: inline-flex;
             align-items: center;
@@ -147,19 +126,15 @@
             font-weight: 700;
         }
 
-        /* Main page content grows to push footer down */
         main {
             flex: 1;
             padding: 28px 0 36px;
         }
 
-        /* Each SPA view is hidden by default;
-           JavaScript will show the active one */
         .view {
             display: none;
         }
 
-        /* Home page hero section */
         .hero {
             background: linear-gradient(135deg, #e8f0fb 0%, #d2e2f6 100%);
             border: 1px solid #c7d6ea;
@@ -168,7 +143,6 @@
             margin-bottom: 26px;
         }
 
-        /* Main heading inside hero section */
         .hero h1 {
             margin: 0 0 12px;
             font-size: 2.4rem;
@@ -176,7 +150,6 @@
             color: #0f172a;
         }
 
-        /* Paragraph text inside hero section */
         .hero p {
             margin: 0 0 20px;
             max-width: 720px;
@@ -184,21 +157,18 @@
             color: #334155;
         }
 
-        /* Section heading style */
         .section-title {
             margin: 0 0 14px;
             font-size: 1.4rem;
             color: #0f172a;
         }
 
-        /* Section subtitle style */
         .section-subtitle {
             margin: 0 0 22px;
             color: #475569;
             line-height: 1.5;
         }
 
-        /* Grid layouts used in different sections */
         .category-grid,
         .featured-grid,
         .product-grid {
@@ -206,23 +176,19 @@
             gap: 18px;
         }
 
-        /* Category cards layout */
         .category-grid {
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             margin-bottom: 28px;
         }
 
-        /* Featured products layout */
         .featured-grid {
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         }
 
-        /* Browse products layout */
         .product-grid {
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
 
-        /* Shared card styles */
         .category-card,
         .featured-card,
         .product-card {
@@ -232,13 +198,16 @@
             box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
         }
 
-        /* Category card spacing and alignment */
         .category-card {
             padding: 22px 14px;
             text-align: center;
         }
 
-        /* Slight lift animation on hover */
+        /* Category buttons fill the full grid cell */
+        .category-button {
+            width: 100%;
+        }
+
         .category-card:hover,
         .featured-card:hover,
         .product-card:hover {
@@ -246,7 +215,6 @@
             transition: transform 0.15s ease;
         }
 
-        /* Decorative category icon block */
         .category-icon {
             width: 64px;
             height: 64px;
@@ -255,19 +223,16 @@
             background: linear-gradient(135deg, #dce9f8 0%, #bfd4ef 100%);
         }
 
-        /* Category label text */
         .category-name {
             font-weight: 700;
             color: #0f172a;
         }
 
-        /* Prevent content from overflowing card edges */
         .featured-card,
         .product-card {
             overflow: hidden;
         }
 
-        /* Shared layout for product image placeholders */
         .product-image,
         .featured-image,
         .main-product-image,
@@ -281,7 +246,6 @@
             border: none;
         }
 
-        /* Card image areas */
         .featured-image,
         .product-image {
             width: 100%;
@@ -289,13 +253,11 @@
             padding: 18px;
         }
 
-        /* Inner spacing for card text/content */
         .featured-content,
         .product-card-content {
             padding: 18px;
         }
 
-        /* Product/featured titles */
         .product-title,
         .featured-title {
             margin: 0 0 8px;
@@ -304,7 +266,6 @@
             color: #0f172a;
         }
 
-        /* Price text styling */
         .product-price,
         .featured-price,
         .single-price {
@@ -312,13 +273,11 @@
             color: #1d4ed8;
         }
 
-        /* Reusable muted text color */
         .muted-text {
             color: #64748b;
             font-size: 0.92rem;
         }
 
-        /* Footer area inside cards containing buttons/prices */
         .product-card-footer,
         .featured-footer {
             display: flex;
@@ -328,27 +287,22 @@
             margin-top: 14px;
         }
 
-        /* Product title button takes full width */
         .title-button {
             padding: 0;
             text-align: left;
             width: 100%;
         }
 
-        /* Underline product title when hovered */
         .title-button:hover .product-title,
         .title-button:hover .featured-title {
             text-decoration: underline;
         }
 
-        /* Product image button fills full width */
         .image-button {
             display: block;
             width: 100%;
         }
 
-        /* Responsive layout for browse page:
-           filters on left, results on right */
         .browse-layout {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -356,7 +310,6 @@
             align-items: start;
         }
 
-        /* Shared panel/card look */
         .panel,
         .single-panel,
         .cart-panel {
@@ -366,14 +319,12 @@
             box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
         }
 
-        /* Filter panel spacing and sticky behavior */
         .filters-panel {
             padding: 22px 18px;
             position: sticky;
             top: 96px;
         }
 
-        /* Shared panel heading styling */
         .filters-panel h2,
         .results-panel h2,
         .cart-panel h2,
@@ -382,21 +333,18 @@
             color: #0f172a;
         }
 
-        /* Individual filter section */
         .filter-group {
             border-top: 1px solid #e2e8f0;
             padding-top: 16px;
             margin-top: 16px;
         }
 
-        /* Filter section title */
         .filter-group h3 {
             margin: 0 0 12px;
             font-size: 1rem;
             color: #334155;
         }
 
-        /* Label row for each filter checkbox */
         .filter-option {
             display: flex;
             align-items: center;
@@ -406,7 +354,6 @@
             color: #334155;
         }
 
-        /* Color circles used in filters and cart/product views */
         .color-dot,
         .selected-color-dot,
         .cart-color-dot,
@@ -418,19 +365,15 @@
             border: 1px solid rgba(15, 23, 42, 0.25);
         }
 
-        /* Slightly smaller color dot for filter list */
         .option-color-dot {
             width: 14px;
             height: 14px;
         }
 
-        /* Results panel spacing */
         .results-panel {
             padding: 22px;
         }
 
-        /* Top area of browse results:
-           count on one side, sorting on the other */
         .results-topbar {
             display: flex;
             align-items: center;
@@ -440,13 +383,11 @@
             flex-wrap: wrap;
         }
 
-        /* Results count text */
         .results-count {
             font-weight: 700;
             color: #0f172a;
         }
 
-        /* Sorting control wrapper */
         .sort-wrap {
             display: flex;
             align-items: center;
@@ -454,7 +395,6 @@
             color: #334155;
         }
 
-        /* Shared form input styling */
         select,
         input[type="number"] {
             font-family: inherit;
@@ -466,7 +406,6 @@
             color: #0f172a;
         }
 
-        /* Area showing currently active filters */
         .active-filters-wrap {
             display: flex;
             align-items: center;
@@ -475,7 +414,6 @@
             margin-bottom: 16px;
         }
 
-        /* Pill-shaped active filter buttons */
         .filter-pill {
             display: inline-flex;
             align-items: center;
@@ -489,7 +427,6 @@
             font-size: 0.9rem;
         }
 
-        /* Shared button base styles */
         .secondary-button,
         .primary-button,
         .small-button,
@@ -501,7 +438,6 @@
             transition: opacity 0.15s ease;
         }
 
-        /* Simple hover effect for buttons */
         .secondary-button:hover,
         .primary-button:hover,
         .small-button:hover,
@@ -510,14 +446,12 @@
             opacity: 0.92;
         }
 
-        /* Secondary button styling */
         .secondary-button {
             background-color: #e2e8f0;
             color: #0f172a;
             padding: 10px 14px;
         }
 
-        /* Main action button styling */
         .primary-button {
             background-color: #2563eb;
             color: #ffffff;
@@ -525,7 +459,6 @@
             font-weight: 700;
         }
 
-        /* Smaller action buttons */
         .small-button,
         .remove-button {
             background-color: #eff6ff;
@@ -534,7 +467,6 @@
             font-weight: 700;
         }
 
-        /* Small square remove button */
         .remove-button {
             width: 34px;
             height: 34px;
@@ -542,7 +474,6 @@
             border-radius: 10px;
         }
 
-        /* Message boxes for browse/cart feedback */
         .browse-message,
         .cart-message {
             padding: 14px 16px;
@@ -552,24 +483,20 @@
             margin-bottom: 16px;
         }
 
-        /* Utility class for hidden elements */
         .hidden-box {
             display: none;
         }
 
-        /* Single product panel spacing */
         .single-panel {
             padding: 26px;
         }
 
-        /* Breadcrumb text above single product */
         .breadcrumbs {
             margin-bottom: 18px;
             font-size: 0.92rem;
             color: #475569;
         }
 
-        /* Breadcrumb links and labels */
         .breadcrumbs a,
         .breadcrumbs span {
             color: #0f172a;
@@ -577,19 +504,16 @@
             text-decoration: underline;
         }
 
-        /* Current breadcrumb item is not underlined */
         .breadcrumbs span {
             text-decoration: none;
         }
 
-        /* Two-column layout for single product page */
         .single-grid {
             display: grid;
             grid-template-columns: 1.1fr 1fr;
             gap: 28px;
         }
 
-        /* Main image area in single product view */
         .main-product-image {
             min-height: 360px;
             border-radius: 20px;
@@ -597,45 +521,38 @@
             padding: 28px;
         }
 
-        /* Thumbnail image grid */
         .thumb-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
         }
 
-        /* Individual thumbnail appearance */
         .thumb-image {
             min-height: 92px;
             border-radius: 16px;
             padding: 10px;
         }
 
-        /* Single product title */
         .single-details h2 {
             margin-bottom: 8px;
             font-size: 1.9rem;
         }
 
-        /* Product description paragraph */
         .single-description {
             line-height: 1.65;
             color: #475569;
             margin: 16px 0;
         }
 
-        /* Rows for material, sizes, etc. */
         .detail-row {
             margin-bottom: 12px;
             color: #334155;
         }
 
-        /* Labels in detail rows */
         .detail-row strong {
             color: #0f172a;
         }
 
-        /* Spacing for control groups like size and color */
         .control-group {
             margin-top: 20px;
         }
@@ -646,14 +563,12 @@
             color: #334155;
         }
 
-        /* Layout for button groups */
         .button-row {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
 
-        /* Size and color selection buttons */
         .size-button,
         .color-button {
             cursor: pointer;
@@ -664,7 +579,6 @@
             color: #334155;
         }
 
-        /* Highlight selected option */
         .size-button.selected,
         .color-button.selected {
             border-color: #2563eb;
@@ -673,14 +587,12 @@
             font-weight: 700;
         }
 
-        /* Color button includes label + color dot */
         .color-button {
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
 
-        /* Action buttons under single product info */
         .single-actions {
             display: flex;
             align-items: center;
@@ -689,13 +601,10 @@
             flex-wrap: wrap;
         }
 
-        /* Cart panel spacing */
         .cart-panel {
             padding: 24px;
         }
 
-        /* Cart layout:
-           item list on left, summary on right */
         .cart-layout {
             display: grid;
             grid-template-columns: 1.35fr 360px;
@@ -703,14 +612,12 @@
             align-items: start;
         }
 
-        /* Vertical stack of cart items */
         .cart-items {
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
 
-        /* Grid row for each cart item */
         .cart-row {
             display: grid;
             grid-template-columns: 40px 88px 1.3fr repeat(4, minmax(70px, auto));
@@ -721,13 +628,11 @@
             padding: 14px;
         }
 
-        /* Styling for cart header row */
         .cart-heading {
             background-color: #f8fbff;
             color: #0f172a;
         }
 
-        /* Product image box inside cart */
         .cart-image {
             width: 88px;
             height: 104px;
@@ -741,33 +646,28 @@
             padding: 8px;
         }
 
-        /* Cart product title */
         .cart-item-title {
             font-weight: 700;
             color: #0f172a;
             margin-bottom: 6px;
         }
 
-        /* Smaller cart metadata text */
         .cart-meta {
             color: #64748b;
             font-size: 0.9rem;
         }
 
-        /* Centered values in cart table-like layout */
         .cart-value {
             color: #334155;
             text-align: center;
         }
 
-        /* Right-side cart summary column */
         .cart-sidebar {
             display: flex;
             flex-direction: column;
             gap: 18px;
         }
 
-        /* Summary and shipping cards */
         .summary-card,
         .shipping-card {
             border: 1px solid #d7e0ec;
@@ -782,7 +682,6 @@
             color: #0f172a;
         }
 
-        /* Individual line in order summary */
         .summary-row {
             display: flex;
             align-items: center;
@@ -791,7 +690,6 @@
             color: #334155;
         }
 
-        /* Total row at bottom of summary */
         .summary-total {
             border-top: 1px solid #cbd5e1;
             margin-top: 8px;
@@ -800,7 +698,6 @@
             color: #0f172a;
         }
 
-        /* Shipping help text */
         .shipping-note {
             margin-top: 12px;
             color: #64748b;
@@ -808,19 +705,16 @@
             line-height: 1.5;
         }
 
-        /* Checkout button wrapper */
         .checkout-wrap {
             margin-top: 10px;
         }
 
-        /* Footer styling */
         footer {
             background-color: #dce9f8;
             border-top: 2px solid #b8c7db;
             margin-top: auto;
         }
 
-        /* Footer inner layout */
         .footer-inner {
             padding: 18px 0 22px;
             display: flex;
@@ -830,13 +724,11 @@
             flex-wrap: wrap;
         }
 
-        /* Footer text styling */
         .footer-text {
             color: #334155;
             line-height: 1.6;
         }
 
-        /* Footer link group */
         .footer-links {
             display: flex;
             align-items: center;
@@ -844,7 +736,6 @@
             flex-wrap: wrap;
         }
 
-        /* Footer links styled like pills */
         .footer-link {
             padding: 8px 12px;
             border-radius: 999px;
@@ -853,7 +744,6 @@
             text-decoration: none;
         }
 
-        /* Full-screen overlay for about popup */
         .overlay {
             position: fixed;
             inset: 0;
@@ -865,7 +755,6 @@
             z-index: 40;
         }
 
-        /* Popup dialog box */
         .modal {
             width: min(760px, 100%);
             background-color: #ffffff;
@@ -875,7 +764,6 @@
             overflow: hidden;
         }
 
-        /* Popup header */
         .modal-header {
             display: flex;
             align-items: center;
@@ -891,7 +779,6 @@
             color: #0f172a;
         }
 
-        /* Popup body content */
         .modal-body {
             padding: 22px;
             line-height: 1.7;
@@ -902,20 +789,17 @@
             margin-top: 0;
         }
 
-        /* List inside popup */
         .modal-list {
             margin: 0 0 18px 20px;
             padding: 0;
         }
 
-        /* Popup footer */
         .modal-footer {
             padding: 0 22px 22px;
             display: flex;
             justify-content: flex-end;
         }
 
-        /* Close button for popup */
         .close-button {
             background-color: #e2e8f0;
             color: #0f172a;
@@ -925,7 +809,6 @@
             font-weight: 700;
         }
 
-        /* Tablet and smaller layouts */
         @media (max-width: 1080px) {
             .browse-layout,
             .single-grid,
@@ -938,7 +821,6 @@
             }
         }
 
-        /* Cart layout adjustment on medium screens */
         @media (max-width: 820px) {
             .cart-row {
                 grid-template-columns: 40px 88px 1fr;
@@ -949,7 +831,6 @@
             }
         }
 
-        /* Small screen/mobile adjustments */
         @media (max-width: 640px) {
             .header-inner {
                 flex-direction: column;
@@ -982,33 +863,27 @@
         }
     </style>
 </head>
-
 <body>
-    <!-- Main page wrapper -->
-    <div class="site-wrapper">
-
-        <!-- Header with logo, navigation, and cart button -->
-        <header>
-            <div class="header-inner">
-                <div class="logo">StyleShelf</div>
-
-                <!-- Main navigation buttons for SPA views -->
-                <nav>
-                    <button id="nav-home" class="nav-button active" type="button">Home</button>
-                    <button id="nav-browse" class="nav-button" type="button">Browse</button>
-                    <button id="nav-about" class="nav-button" type="button">About</button>
-                </nav>
-
-                <!-- Cart button with item count badge -->
-                <button id="nav-cart" class="cart-button" type="button">
-                    Cart <span id="cart-count" class="cart-badge">0</span>
-                </button>
-            </div>
-        </header>
+<!-- Main page wrapper -->
+<div class="site-wrapper">
+    <!-- Header with logo, navigation, and cart button -->
+    <header>
+        <div class="header-inner">
+            <div class="logo">StyleShelf</div>
+            <nav>
+                <button id="nav-home" class="nav-button active" type="button">Home</button>
+                <button id="nav-browse" class="nav-button" type="button">Browse</button>
+                <button id="nav-about" class="nav-button" type="button">About</button>
+            </nav>
+            <button id="nav-cart" class="cart-button" type="button">Cart <span id="cart-count" class="cart-badge">0</span></button>
+        </div>
+    </header>
 
     <main>
         <div class="main-inner">
-            <section id="home-view" class="view" style="display: block;">
+            <!-- The middle area changes between Home, Browse, Single Product, and Cart views -->
+            <!-- Home view shown when the page first loads -->
+            <section id="home-view" class="view">
                 <div class="hero">
                     <h1>Single-Page Product Shop</h1>
                     <p>
@@ -1018,45 +893,52 @@
                     <button id="hero-browse-button" class="primary-button" type="button">Start Browsing</button>
                 </div>
 
+                <!-- Home category preview section -->
                 <h2 class="section-title">Shop by Category</h2>
                 <p class="section-subtitle">A simple category section makes the home view feel more complete while still keeping the assignment focused on the required views.</p>
-                <div id="home-category-grid" class="category-grid"><div class="category-card"><div class="category-icon"></div><div class="category-name">Accessories</div></div><div class="category-card"><div class="category-icon"></div><div class="category-name">Bottoms</div></div><div class="category-card"><div class="category-icon"></div><div class="category-name">Dresses</div></div><div class="category-card"><div class="category-icon"></div><div class="category-name">Intimates</div></div><div class="category-card"><div class="category-icon"></div><div class="category-name">Jumpsuits</div></div><div class="category-card"><div class="category-icon"></div><div class="category-name">Loungewear</div></div><div class="category-card"><div class="category-icon"></div><div class="category-name">Outerwear</div></div><div class="category-card"><div class="category-icon"></div><div class="category-name">Shoes</div></div></div>
+                <!-- Grid containing clickable category cards -->
+                <div id="home-category-grid" class="category-grid"></div>
 
+                <!-- Featured products section on the Home view -->
                 <h2 class="section-title">Featured Products</h2>
                 <p class="section-subtitle">These are popular items from the dataset, shown here in a larger format.</p>
-                <div id="featured-products" class="featured-grid"><div class="featured-card"><button class="image-button feature-open-button" type="button" value="P070"><div class="featured-image" style="background-color:#FFD700;">Statement Earrings</div></button><div class="featured-content"><button class="title-button feature-open-button" type="button" value="P070"><h3 class="featured-title">Statement Earrings</h3></button><div class="muted-text">Womens · Accessories</div><div class="featured-footer"><div class="featured-price">$42.00</div><button class="small-button feature-add-button" type="button" value="P070">Add to Cart</button></div></div></div><div class="featured-card"><button class="image-button feature-open-button" type="button" value="P082"><div class="featured-image" style="background-color:#000000;">Seamless Bodysuit</div></button><div class="featured-content"><button class="title-button feature-open-button" type="button" value="P082"><h3 class="featured-title">Seamless Bodysuit</h3></button><div class="muted-text">Womens · Intimates</div><div class="featured-footer"><div class="featured-price">$48.00</div><button class="small-button feature-add-button" type="button" value="P082">Add to Cart</button></div></div></div><div class="featured-card"><button class="image-button feature-open-button" type="button" value="P094"><div class="featured-image" style="background-color:#8B4513;">Oversized Sunglasses</div></button><div class="featured-content"><button class="title-button feature-open-button" type="button" value="P094"><h3 class="featured-title">Oversized Sunglasses</h3></button><div class="muted-text">Womens · Accessories</div><div class="featured-footer"><div class="featured-price">$95.00</div><button class="small-button feature-add-button" type="button" value="P094">Add to Cart</button></div></div></div><div class="featured-card"><button class="image-button feature-open-button" type="button" value="P052"><div class="featured-image" style="background-color:#000000;">Quilted Crossbody Bag</div></button><div class="featured-content"><button class="title-button feature-open-button" type="button" value="P052"><h3 class="featured-title">Quilted Crossbody Bag</h3></button><div class="muted-text">Womens · Accessories</div><div class="featured-footer"><div class="featured-price">$78.00</div><button class="small-button feature-add-button" type="button" value="P052">Add to Cart</button></div></div></div><div class="featured-card"><button class="image-button feature-open-button" type="button" value="P079"><div class="featured-image" style="background-color:#E3BC9A;">Knit Bralette</div></button><div class="featured-content"><button class="title-button feature-open-button" type="button" value="P079"><h3 class="featured-title">Knit Bralette</h3></button><div class="muted-text">Womens · Intimates</div><div class="featured-footer"><div class="featured-price">$35.00</div><button class="small-button feature-add-button" type="button" value="P079">Add to Cart</button></div></div></div><div class="featured-card"><button class="image-button feature-open-button" type="button" value="P074"><div class="featured-image" style="background-color:#FFFFFF;">Platform Sneakers</div></button><div class="featured-content"><button class="title-button feature-open-button" type="button" value="P074"><h3 class="featured-title">Platform Sneakers</h3></button><div class="muted-text">Womens · Shoes</div><div class="featured-footer"><div class="featured-price">$298.00</div><button class="small-button feature-add-button" type="button" value="P074">Add to Cart</button></div></div></div></div>
+                <!-- Grid containing featured product cards -->
+                <div id="featured-products" class="featured-grid"></div>
             </section>
 
-            <section id="browse-view" class="view" style="display: none;">
+            <!-- Browse view used for filtering, sorting, and browsing products -->
+            <section id="browse-view" class="view">
                 <div class="browse-layout">
+                    <!-- Left filter sidebar -->
                     <aside class="panel filters-panel">
                         <h2>Departments</h2>
                         <p class="muted-text">Filters are additive. A product must pass every selected filter to appear in the results.</p>
 
                         <div class="filter-group">
                             <h3>Gender</h3>
-                            <div id="gender-filters"><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="gender" value="mens"><span>Mens</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="gender" value="womens"><span>Womens</span></label></div>
+                            <div id="gender-filters"></div>
                         </div>
 
                         <div class="filter-group">
                             <h3>Category</h3>
-                            <div id="category-filters"><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Accessories"><span>Accessories</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Bottoms"><span>Bottoms</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Dresses"><span>Dresses</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Intimates"><span>Intimates</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Jumpsuits"><span>Jumpsuits</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Loungewear"><span>Loungewear</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Outerwear"><span>Outerwear</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Shoes"><span>Shoes</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Sweaters"><span>Sweaters</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Swimwear"><span>Swimwear</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="category" value="Tops"><span>Tops</span></label></div>
+                            <div id="category-filters"></div>
                         </div>
 
                         <div class="filter-group">
                             <h3>Size</h3>
-                            <div id="size-filters"><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="10"><span>10</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="24"><span>24</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="26"><span>26</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="28"><span>28</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="30"><span>30</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="32"><span>32</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="6"><span>6</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="7"><span>7</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="8"><span>8</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="9"><span>9</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="L"><span>L</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="L/XL"><span>L/XL</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="M"><span>M</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="One Size"><span>One Size</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="S"><span>S</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="S/M"><span>S/M</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="XL"><span>XL</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="size" value="XS"><span>XS</span></label></div>
+                            <div id="size-filters"></div>
                         </div>
 
                         <div class="filter-group">
                             <h3>Colors</h3>
-                            <div id="color-filters"><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Army Green"><span class="option-color-dot" style="background-color:#4B5320;"></span><span>Army Green</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Beige"><span class="option-color-dot" style="background-color:#F5F5DC;"></span><span>Beige</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Black"><span class="option-color-dot" style="background-color:#000000;"></span><span>Black</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Blue/White"><span class="option-color-dot" style="background-color:#4682B4;"></span><span>Blue/White</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Blush"><span class="option-color-dot" style="background-color:#FFB6C1;"></span><span>Blush</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Brown"><span class="option-color-dot" style="background-color:#8B4513;"></span><span>Brown</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Burgundy"><span class="option-color-dot" style="background-color:#800020;"></span><span>Burgundy</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Camel"><span class="option-color-dot" style="background-color:#C19A6B;"></span><span>Camel</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Caramel"><span class="option-color-dot" style="background-color:#C68E17;"></span><span>Caramel</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Champagne"><span class="option-color-dot" style="background-color:#F7E7CE;"></span><span>Champagne</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Charcoal"><span class="option-color-dot" style="background-color:#36454F;"></span><span>Charcoal</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Cognac"><span class="option-color-dot" style="background-color:#9F4624;"></span><span>Cognac</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Coral"><span class="option-color-dot" style="background-color:#FF7F50;"></span><span>Coral</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Cream"><span class="option-color-dot" style="background-color:#FFFDD0;"></span><span>Cream</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Dark Wash"><span class="option-color-dot" style="background-color:#2F4F4F;"></span><span>Dark Wash</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Dusty Rose"><span class="option-color-dot" style="background-color:#DCAE96;"></span><span>Dusty Rose</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Emerald"><span class="option-color-dot" style="background-color:#50C878;"></span><span>Emerald</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Forest Green"><span class="option-color-dot" style="background-color:#228B22;"></span><span>Forest Green</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Gold"><span class="option-color-dot" style="background-color:#FFD700;"></span><span>Gold</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Gray"><span class="option-color-dot" style="background-color:#808080;"></span><span>Gray</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Gray/Black"><span class="option-color-dot" style="background-color:#708090;"></span><span>Gray/Black</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Heather Gray"><span class="option-color-dot" style="background-color:#BCC6CC;"></span><span>Heather Gray</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Ivory"><span class="option-color-dot" style="background-color:#FFFFF0;"></span><span>Ivory</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Khaki"><span class="option-color-dot" style="background-color:#C3B091;"></span><span>Khaki</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Lavender"><span class="option-color-dot" style="background-color:#E6E6FA;"></span><span>Lavender</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Light Blue"><span class="option-color-dot" style="background-color:#ADD8E6;"></span><span>Light Blue</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Light Wash"><span class="option-color-dot" style="background-color:#9DB4C0;"></span><span>Light Wash</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Medium Wash"><span class="option-color-dot" style="background-color:#5B7C99;"></span><span>Medium Wash</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Mint"><span class="option-color-dot" style="background-color:#98FF98;"></span><span>Mint</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Multicolor"><span class="option-color-dot" style="background-color:#FFB6C1;"></span><span>Multicolor</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Navy"><span class="option-color-dot" style="background-color:#000080;"></span><span>Navy</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Nude"><span class="option-color-dot" style="background-color:#E3BC9A;"></span><span>Nude</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Oatmeal"><span class="option-color-dot" style="background-color:#E9DCC9;"></span><span>Oatmeal</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Olive"><span class="option-color-dot" style="background-color:#808000;"></span><span>Olive</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Pink/White"><span class="option-color-dot" style="background-color:#FFC0CB;"></span><span>Pink/White</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Red"><span class="option-color-dot" style="background-color:#FF0000;"></span><span>Red</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Red Plaid"><span class="option-color-dot" style="background-color:#DC143C;"></span><span>Red Plaid</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Rust"><span class="option-color-dot" style="background-color:#B7410E;"></span><span>Rust</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Sage"><span class="option-color-dot" style="background-color:#9DC183;"></span><span>Sage</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Stone"><span class="option-color-dot" style="background-color:#928E85;"></span><span>Stone</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Tan"><span class="option-color-dot" style="background-color:#D2B48C;"></span><span>Tan</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Taupe"><span class="option-color-dot" style="background-color:#B38B6D;"></span><span>Taupe</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Tortoise"><span class="option-color-dot" style="background-color:#8B4513;"></span><span>Tortoise</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="White"><span class="option-color-dot" style="background-color:#FFFFFF;"></span><span>White</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Wine"><span class="option-color-dot" style="background-color:#722F37;"></span><span>Wine</span></label><label class="filter-option"><input class="filter-checkbox" type="checkbox" name="color" value="Yellow"><span class="option-color-dot" style="background-color:#FFFF00;"></span><span>Yellow</span></label></div>
+                            <div id="color-filters"></div>
                         </div>
                     </aside>
 
+                    <!-- Right results panel -->
                     <section class="panel results-panel">
                         <div class="results-topbar">
-                            <div class="results-count"><span id="result-count">100</span> Results</div>
+                            <div class="results-count"><span id="result-count">0</span> Results</div>
                             <div class="sort-wrap">
                                 <label for="sort-select">Sort</label>
                                 <select id="sort-select">
@@ -1071,27 +953,34 @@
                             <button id="clear-filters-button" class="secondary-button" type="button">Clear All</button>
                         </div>
 
-                        <div id="browse-message" class="browse-message hidden-box" style="display: none;"></div>
-                        <div id="browse-results" class="product-grid"><div class="product-card"><button class="image-button browse-open-button" type="button" value="P029"><div class="product-image" style="background-color:#5B7C99;">A-Line Denim Skirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P029"><h3 class="product-title">A-Line Denim Skirt</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Medium Wash</div><div class="product-card-footer"><div class="product-price">$72.00</div><button class="small-button browse-add-button" type="button" value="P029">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P071"><div class="product-image" style="background-color:#000000;">Asymmetric Hem Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P071"><h3 class="product-title">Asymmetric Hem Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$152.00</div><button class="small-button browse-add-button" type="button" value="P071">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P063"><div class="product-image" style="background-color:#000000;">Backless Bodysuit</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P063"><h3 class="product-title">Backless Bodysuit</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$68.00</div><button class="small-button browse-add-button" type="button" value="P063">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P044"><div class="product-image" style="background-color:#D2B48C;">Belted Trench Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P044"><h3 class="product-title">Belted Trench Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Tan</div><div class="product-card-footer"><div class="product-price">$168.00</div><button class="small-button browse-add-button" type="button" value="P044">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P067"><div class="product-image" style="background-color:#C3B091;">Bucket Hat</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P067"><h3 class="product-title">Bucket Hat</h3></button><div class="muted-text">Mens · Accessories</div><div class="muted-text">Color: Khaki</div><div class="product-card-footer"><div class="product-price">$38.00</div><button class="small-button browse-add-button" type="button" value="P067">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P032"><div class="product-image" style="background-color:#FFFFF0;">Cable Knit Sweater</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P032"><h3 class="product-title">Cable Knit Sweater</h3></button><div class="muted-text">Mens · Sweaters</div><div class="muted-text">Color: Ivory</div><div class="product-card-footer"><div class="product-price">$145.00</div><button class="small-button browse-add-button" type="button" value="P032">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P042"><div class="product-image" style="background-color:#4B5320;">Cargo Pants</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P042"><h3 class="product-title">Cargo Pants</h3></button><div class="muted-text">Mens · Bottoms</div><div class="muted-text">Color: Army Green</div><div class="product-card-footer"><div class="product-price">$88.00</div><button class="small-button browse-add-button" type="button" value="P042">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P053"><div class="product-image" style="background-color:#808080;">Cashmere Beanie</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P053"><h3 class="product-title">Cashmere Beanie</h3></button><div class="muted-text">Mens · Accessories</div><div class="muted-text">Color: Gray</div><div class="product-card-footer"><div class="product-price">$65.00</div><button class="small-button browse-add-button" type="button" value="P053">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P088"><div class="product-image" style="background-color:#000000;">Cashmere Gloves</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P088"><h3 class="product-title">Cashmere Gloves</h3></button><div class="muted-text">Mens · Accessories</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$75.00</div><button class="small-button browse-add-button" type="button" value="P088">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P072"><div class="product-image" style="background-color:#BCC6CC;">Cashmere Joggers</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P072"><h3 class="product-title">Cashmere Joggers</h3></button><div class="muted-text">Womens · Loungewear</div><div class="muted-text">Color: Heather Gray</div><div class="product-card-footer"><div class="product-price">$225.00</div><button class="small-button browse-add-button" type="button" value="P072">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P095"><div class="product-image" style="background-color:#E9DCC9;">Cashmere Robe</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P095"><h3 class="product-title">Cashmere Robe</h3></button><div class="muted-text">Womens · Loungewear</div><div class="muted-text">Color: Oatmeal</div><div class="product-card-footer"><div class="product-price">$385.00</div><button class="small-button browse-add-button" type="button" value="P095">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P003"><div class="product-image" style="background-color:#36454F;">Cashmere Turtleneck Sweater</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P003"><h3 class="product-title">Cashmere Turtleneck Sweater</h3></button><div class="muted-text">Mens · Sweaters</div><div class="muted-text">Color: Charcoal</div><div class="product-card-footer"><div class="product-price">$195.00</div><button class="small-button browse-add-button" type="button" value="P003">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P062"><div class="product-image" style="background-color:#C19A6B;">Cashmere Wrap Scarf</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P062"><h3 class="product-title">Cashmere Wrap Scarf</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Camel</div><div class="product-card-footer"><div class="product-price">$158.00</div><button class="small-button browse-add-button" type="button" value="P062">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P048"><div class="product-image" style="background-color:#ADD8E6;">Chambray Shirt Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P048"><h3 class="product-title">Chambray Shirt Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Light Blue</div><div class="product-card-footer"><div class="product-price">$85.00</div><button class="small-button browse-add-button" type="button" value="P048">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P061"><div class="product-image" style="background-color:#000000;">Chelsea Ankle Boots</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P061"><h3 class="product-title">Chelsea Ankle Boots</h3></button><div class="muted-text">Mens · Shoes</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$165.00</div><button class="small-button browse-add-button" type="button" value="P061">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P018"><div class="product-image" style="background-color:#E6E6FA;">Chiffon Blouse</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P018"><h3 class="product-title">Chiffon Blouse</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Lavender</div><div class="product-card-footer"><div class="product-price">$79.00</div><button class="small-button browse-add-button" type="button" value="P018">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P055"><div class="product-image" style="background-color:#C68E17;">Corduroy Overalls</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P055"><h3 class="product-title">Corduroy Overalls</h3></button><div class="muted-text">Mens · Jumpsuits</div><div class="muted-text">Color: Caramel</div><div class="product-card-footer"><div class="product-price">$118.00</div><button class="small-button browse-add-button" type="button" value="P055">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P083"><div class="product-image" style="background-color:#000000;">Corset Top</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P083"><h3 class="product-title">Corset Top</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$95.00</div><button class="small-button browse-add-button" type="button" value="P083">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P016"><div class="product-image" style="background-color:#808080;">Cotton T-Shirt Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P016"><h3 class="product-title">Cotton T-Shirt Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Gray</div><div class="product-card-footer"><div class="product-price">$58.00</div><button class="small-button browse-add-button" type="button" value="P016">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P066"><div class="product-image" style="background-color:#800020;">Cowl Neck Sweater Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P066"><h3 class="product-title">Cowl Neck Sweater Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Burgundy</div><div class="product-card-footer"><div class="product-price">$135.00</div><button class="small-button browse-add-button" type="button" value="P066">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P022"><div class="product-image" style="background-color:#000080;">Crew Neck Pullover</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P022"><h3 class="product-title">Crew Neck Pullover</h3></button><div class="muted-text">Mens · Sweaters</div><div class="muted-text">Color: Navy</div><div class="product-card-footer"><div class="product-price">$88.00</div><button class="small-button browse-add-button" type="button" value="P022">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P086"><div class="product-image" style="background-color:#FFFFFF;">Crochet Beach Cover-Up</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P086"><h3 class="product-title">Crochet Beach Cover-Up</h3></button><div class="muted-text">Womens · Swimwear</div><div class="muted-text">Color: White</div><div class="product-card-footer"><div class="product-price">$78.00</div><button class="small-button browse-add-button" type="button" value="P086">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P049"><div class="product-image" style="background-color:#98FF98;">Cropped Cardigan</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P049"><h3 class="product-title">Cropped Cardigan</h3></button><div class="muted-text">Mens · Sweaters</div><div class="muted-text">Color: Mint</div><div class="product-card-footer"><div class="product-price">$68.00</div><button class="small-button browse-add-button" type="button" value="P049">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P017"><div class="product-image" style="background-color:#5B7C99;">Cropped Denim Jacket</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P017"><h3 class="product-title">Cropped Denim Jacket</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Medium Wash</div><div class="product-card-footer"><div class="product-price">$95.00</div><button class="small-button browse-add-button" type="button" value="P017">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P099"><div class="product-image" style="background-color:#000080;">Culottes</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P099"><h3 class="product-title">Culottes</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Navy</div><div class="product-card-footer"><div class="product-price">$98.00</div><button class="small-button browse-add-button" type="button" value="P099">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P075"><div class="product-image" style="background-color:#FF0000;">Cut-Out Midi Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P075"><h3 class="product-title">Cut-Out Midi Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Red</div><div class="product-card-footer"><div class="product-price">$118.00</div><button class="small-button browse-add-button" type="button" value="P075">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P009"><div class="product-image" style="background-color:#9DB4C0;">Denim Boyfriend Jeans</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P009"><h3 class="product-title">Denim Boyfriend Jeans</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Light Wash</div><div class="product-card-footer"><div class="product-price">$98.00</div><button class="small-button browse-add-button" type="button" value="P009">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P100"><div class="product-image" style="background-color:#FFD700;">Embellished Clutch</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P100"><h3 class="product-title">Embellished Clutch</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Gold</div><div class="product-card-footer"><div class="product-price">$88.00</div><button class="small-button browse-add-button" type="button" value="P100">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P076"><div class="product-image" style="background-color:#5B7C99;">Embroidered Denim Jacket</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P076"><h3 class="product-title">Embroidered Denim Jacket</h3></button><div class="muted-text">Womens · Outerwear</div><div class="muted-text">Color: Medium Wash</div><div class="product-card-footer"><div class="product-price">$135.00</div><button class="small-button browse-add-button" type="button" value="P076">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P025"><div class="product-image" style="background-color:#FFFDD0;">Faux Fur Coat</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P025"><h3 class="product-title">Faux Fur Coat</h3></button><div class="muted-text">Womens · Outerwear</div><div class="muted-text">Color: Cream</div><div class="product-card-footer"><div class="product-price">$295.00</div><button class="small-button browse-add-button" type="button" value="P025">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P059"><div class="product-image" style="background-color:#000000;">Faux Leather Pants</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P059"><h3 class="product-title">Faux Leather Pants</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$128.00</div><button class="small-button browse-add-button" type="button" value="P059">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P006"><div class="product-image" style="background-color:#FFB6C1;">Floral Print Maxi Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P006"><h3 class="product-title">Floral Print Maxi Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Multicolor</div><div class="product-card-footer"><div class="product-price">$145.00</div><button class="small-button browse-add-button" type="button" value="P006">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P054"><div class="product-image" style="background-color:#722F37;">Halter Neck Top</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P054"><h3 class="product-title">Halter Neck Top</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Wine</div><div class="product-card-footer"><div class="product-price">$58.00</div><button class="small-button browse-add-button" type="button" value="P054">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P080"><div class="product-image" style="background-color:#228B22;">High-Neck Maxi Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P080"><h3 class="product-title">High-Neck Maxi Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Forest Green</div><div class="product-card-footer"><div class="product-price">$165.00</div><button class="small-button browse-add-button" type="button" value="P080">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P035"><div class="product-image" style="background-color:#2F4F4F;">High-Rise Flare Jeans</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P035"><h3 class="product-title">High-Rise Flare Jeans</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Dark Wash</div><div class="product-card-footer"><div class="product-price">$105.00</div><button class="small-button browse-add-button" type="button" value="P035">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P002"><div class="product-image" style="background-color:#F5F5DC;">High-Waist Linen Trousers</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P002"><h3 class="product-title">High-Waist Linen Trousers</h3></button><div class="muted-text">Mens · Bottoms</div><div class="muted-text">Color: Beige</div><div class="product-card-footer"><div class="product-price">$115.00</div><button class="small-button browse-add-button" type="button" value="P002">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P087"><div class="product-image" style="background-color:#FF0000;">High-Waisted Bikini Set</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P087"><h3 class="product-title">High-Waisted Bikini Set</h3></button><div class="muted-text">Womens · Swimwear</div><div class="muted-text">Color: Red</div><div class="product-card-footer"><div class="product-price">$88.00</div><button class="small-button browse-add-button" type="button" value="P087">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P045"><div class="product-image" style="background-color:#000080;">Hooded Parka</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P045"><h3 class="product-title">Hooded Parka</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Navy</div><div class="product-card-footer"><div class="product-price">$245.00</div><button class="small-button browse-add-button" type="button" value="P045">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P079"><div class="product-image" style="background-color:#E3BC9A;">Knit Bralette</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P079"><h3 class="product-title">Knit Bralette</h3></button><div class="muted-text">Womens · Intimates</div><div class="muted-text">Color: Nude</div><div class="product-card-footer"><div class="product-price">$35.00</div><button class="small-button browse-add-button" type="button" value="P079">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P014"><div class="product-image" style="background-color:#E9DCC9;">Knit Cardigan</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P014"><h3 class="product-title">Knit Cardigan</h3></button><div class="muted-text">Mens · Sweaters</div><div class="muted-text">Color: Oatmeal</div><div class="product-card-footer"><div class="product-price">$125.00</div><button class="small-button browse-add-button" type="button" value="P014">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P057"><div class="product-image" style="background-color:#36454F;">Knit Midi Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P057"><h3 class="product-title">Knit Midi Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Charcoal</div><div class="product-card-footer"><div class="product-price">$108.00</div><button class="small-button browse-add-button" type="button" value="P057">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P092"><div class="product-image" style="background-color:#FFB6C1;">Lace Bralette Set</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P092"><h3 class="product-title">Lace Bralette Set</h3></button><div class="muted-text">Womens · Intimates</div><div class="muted-text">Color: Blush</div><div class="product-card-footer"><div class="product-price">$82.00</div><button class="small-button browse-add-button" type="button" value="P092">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P026"><div class="product-image" style="background-color:#000000;">Lace Trim Camisole</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P026"><h3 class="product-title">Lace Trim Camisole</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$48.00</div><button class="small-button browse-add-button" type="button" value="P026">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P077"><div class="product-image" style="background-color:#000000;">Leather Belt Bag</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P077"><h3 class="product-title">Leather Belt Bag</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$72.00</div><button class="small-button browse-add-button" type="button" value="P077">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P058"><div class="product-image" style="background-color:#8B4513;">Leather Loafers</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P058"><h3 class="product-title">Leather Loafers</h3></button><div class="muted-text">Mens · Shoes</div><div class="muted-text">Color: Brown</div><div class="product-card-footer"><div class="product-price">$145.00</div><button class="small-button browse-add-button" type="button" value="P058">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P047"><div class="product-image" style="background-color:#000000;">Leather Mini Skirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P047"><h3 class="product-title">Leather Mini Skirt</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$158.00</div><button class="small-button browse-add-button" type="button" value="P047">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P005"><div class="product-image" style="background-color:#000000;">Leather Moto Jacket</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P005"><h3 class="product-title">Leather Moto Jacket</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$425.00</div><button class="small-button browse-add-button" type="button" value="P005">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P098"><div class="product-image" style="background-color:#000000;">Leather Shoulder Bag</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P098"><h3 class="product-title">Leather Shoulder Bag</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$215.00</div><button class="small-button browse-add-button" type="button" value="P098">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P039"><div class="product-image" style="background-color:#928E85;">Linen Blend Blazer</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P039"><h3 class="product-title">Linen Blend Blazer</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Stone</div><div class="product-card-footer"><div class="product-price">$185.00</div><button class="small-button browse-add-button" type="button" value="P039">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P038"><div class="product-image" style="background-color:#000000;">Mesh Long Sleeve Top</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P038"><h3 class="product-title">Mesh Long Sleeve Top</h3></button><div class="muted-text">Mens · Tops</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$42.00</div><button class="small-button browse-add-button" type="button" value="P038">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P041"><div class="product-image" style="background-color:#800020;">Mock Neck Sweater</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P041"><h3 class="product-title">Mock Neck Sweater</h3></button><div class="muted-text">Mens · Sweaters</div><div class="muted-text">Color: Burgundy</div><div class="product-card-footer"><div class="product-price">$98.00</div><button class="small-button browse-add-button" type="button" value="P041">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P090"><div class="product-image" style="background-color:#D2B48C;">Mules with Block Heel</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P090"><h3 class="product-title">Mules with Block Heel</h3></button><div class="muted-text">Womens · Shoes</div><div class="muted-text">Color: Tan</div><div class="product-card-footer"><div class="product-price">$205.00</div><button class="small-button browse-add-button" type="button" value="P090">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P043"><div class="product-image" style="background-color:#FFFFFF;">Off-Shoulder Crop Top</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P043"><h3 class="product-title">Off-Shoulder Crop Top</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: White</div><div class="product-card-footer"><div class="product-price">$52.00</div><button class="small-button browse-add-button" type="button" value="P043">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P096"><div class="product-image" style="background-color:#000000;">One-Piece Swimsuit</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P096"><h3 class="product-title">One-Piece Swimsuit</h3></button><div class="muted-text">Womens · Swimwear</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$125.00</div><button class="small-button browse-add-button" type="button" value="P096">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P024"><div class="product-image" style="background-color:#DC143C;">Oversized Flannel Shirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P024"><h3 class="product-title">Oversized Flannel Shirt</h3></button><div class="muted-text">Mens · Tops</div><div class="muted-text">Color: Red Plaid</div><div class="product-card-footer"><div class="product-price">$62.00</div><button class="small-button browse-add-button" type="button" value="P024">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P094"><div class="product-image" style="background-color:#8B4513;">Oversized Sunglasses</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P094"><h3 class="product-title">Oversized Sunglasses</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Tortoise</div><div class="product-card-footer"><div class="product-price">$95.00</div><button class="small-button browse-add-button" type="button" value="P094">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P027"><div class="product-image" style="background-color:#C3B091;">Paperbag Waist Shorts</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P027"><h3 class="product-title">Paperbag Waist Shorts</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Khaki</div><div class="product-card-footer"><div class="product-price">$58.00</div><button class="small-button browse-add-button" type="button" value="P027">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P023"><div class="product-image" style="background-color:#000000;">Pencil Skirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P023"><h3 class="product-title">Pencil Skirt</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$68.00</div><button class="small-button browse-add-button" type="button" value="P023">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P034"><div class="product-image" style="background-color:#DCAE96;">Peplum Top</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P034"><h3 class="product-title">Peplum Top</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Dusty Rose</div><div class="product-card-footer"><div class="product-price">$76.00</div><button class="small-button browse-add-button" type="button" value="P034">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P089"><div class="product-image" style="background-color:#FFFFF0;">Pintuck Blouse</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P089"><h3 class="product-title">Pintuck Blouse</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Ivory</div><div class="product-card-footer"><div class="product-price">$92.00</div><button class="small-button browse-add-button" type="button" value="P089">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P064"><div class="product-image" style="background-color:#708090;">Plaid Blazer</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P064"><h3 class="product-title">Plaid Blazer</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Gray/Black</div><div class="product-card-footer"><div class="product-price">$195.00</div><button class="small-button browse-add-button" type="button" value="P064">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P074"><div class="product-image" style="background-color:#FFFFFF;">Platform Sneakers</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P074"><h3 class="product-title">Platform Sneakers</h3></button><div class="muted-text">Womens · Shoes</div><div class="muted-text">Color: White</div><div class="product-card-footer"><div class="product-price">$298.00</div><button class="small-button browse-add-button" type="button" value="P074">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P004"><div class="product-image" style="background-color:#000080;">Pleated Midi Skirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P004"><h3 class="product-title">Pleated Midi Skirt</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Navy</div><div class="product-card-footer"><div class="product-price">$78.50</div><button class="small-button browse-add-button" type="button" value="P004">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P020"><div class="product-image" style="background-color:#808000;">Puffer Vest</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P020"><h3 class="product-title">Puffer Vest</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Olive</div><div class="product-card-footer"><div class="product-price">$135.00</div><button class="small-button browse-add-button" type="button" value="P020">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P030"><div class="product-image" style="background-color:#228B22;">Quilted Bomber Jacket</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P030"><h3 class="product-title">Quilted Bomber Jacket</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Forest Green</div><div class="product-card-footer"><div class="product-price">$165.00</div><button class="small-button browse-add-button" type="button" value="P030">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P052"><div class="product-image" style="background-color:#000000;">Quilted Crossbody Bag</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P052"><h3 class="product-title">Quilted Crossbody Bag</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$78.00</div><button class="small-button browse-add-button" type="button" value="P052">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P091"><div class="product-image" style="background-color:#000000;">Quilted Puffer Jacket</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P091"><h3 class="product-title">Quilted Puffer Jacket</h3></button><div class="muted-text">Womens · Outerwear</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$185.00</div><button class="small-button browse-add-button" type="button" value="P091">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P069"><div class="product-image" style="background-color:#9DC183;">Ribbed Lounge Set</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P069"><h3 class="product-title">Ribbed Lounge Set</h3></button><div class="muted-text">Mens · Loungewear</div><div class="muted-text">Color: Sage</div><div class="product-card-footer"><div class="product-price">$88.00</div><button class="small-button browse-add-button" type="button" value="P069">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P007"><div class="product-image" style="background-color:#FFFFFF;">Ribbed Tank Top</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P007"><h3 class="product-title">Ribbed Tank Top</h3></button><div class="muted-text">Mens · Tops</div><div class="muted-text">Color: White</div><div class="product-card-footer"><div class="product-price">$32.00</div><button class="small-button browse-add-button" type="button" value="P007">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P060"><div class="product-image" style="background-color:#FFFDD0;">Ruffled Blouse</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P060"><h3 class="product-title">Ruffled Blouse</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Cream</div><div class="product-card-footer"><div class="product-price">$85.00</div><button class="small-button browse-add-button" type="button" value="P060">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P078"><div class="product-image" style="background-color:#50C878;">Satin Bomber Jacket</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P078"><h3 class="product-title">Satin Bomber Jacket</h3></button><div class="muted-text">Womens · Outerwear</div><div class="muted-text">Color: Emerald</div><div class="product-card-footer"><div class="product-price">$348.00</div><button class="small-button browse-add-button" type="button" value="P078">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P010"><div class="product-image" style="background-color:#FFB6C1;">Satin Camisole</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P010"><h3 class="product-title">Satin Camisole</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Blush</div><div class="product-card-footer"><div class="product-price">$65.00</div><button class="small-button browse-add-button" type="button" value="P010">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P051"><div class="product-image" style="background-color:#50C878;">Satin Midi Skirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P051"><h3 class="product-title">Satin Midi Skirt</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Emerald</div><div class="product-card-footer"><div class="product-price">$95.00</div><button class="small-button browse-add-button" type="button" value="P051">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P082"><div class="product-image" style="background-color:#000000;">Seamless Bodysuit</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P082"><h3 class="product-title">Seamless Bodysuit</h3></button><div class="muted-text">Womens · Intimates</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$48.00</div><button class="small-button browse-add-button" type="button" value="P082">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P015"><div class="product-image" style="background-color:#FFD700;">Sequin Mini Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P015"><h3 class="product-title">Sequin Mini Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Gold</div><div class="product-card-footer"><div class="product-price">$189.00</div><button class="small-button browse-add-button" type="button" value="P015">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P065"><div class="product-image" style="background-color:#000080;">Silk Pajama Set</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P065"><h3 class="product-title">Silk Pajama Set</h3></button><div class="muted-text">Mens · Loungewear</div><div class="muted-text">Color: Navy</div><div class="product-card-footer"><div class="product-price">$185.00</div><button class="small-button browse-add-button" type="button" value="P065">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P056"><div class="product-image" style="background-color:#FF6B9D;">Silk Scarf</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P056"><h3 class="product-title">Silk Scarf</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Multicolor</div><div class="product-card-footer"><div class="product-price">$52.00</div><button class="small-button browse-add-button" type="button" value="P056">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P001"><div class="product-image" style="background-color:#FFFFF0;">Silk Wrap Blouse</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P001"><h3 class="product-title">Silk Wrap Blouse</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Ivory</div><div class="product-card-footer"><div class="product-price">$89.99</div><button class="small-button browse-add-button" type="button" value="P001">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P019"><div class="product-image" style="background-color:#2F4F4F;">Skinny Ankle Jeans</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P019"><h3 class="product-title">Skinny Ankle Jeans</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Dark Wash</div><div class="product-card-footer"><div class="product-price">$92.00</div><button class="small-button browse-add-button" type="button" value="P019">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P031"><div class="product-image" style="background-color:#F7E7CE;">Slip Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P031"><h3 class="product-title">Slip Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Champagne</div><div class="product-card-footer"><div class="product-price">$112.00</div><button class="small-button browse-add-button" type="button" value="P031">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P040"><div class="product-image" style="background-color:#FFFF00;">Smocked Sundress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P040"><h3 class="product-title">Smocked Sundress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Yellow</div><div class="product-card-footer"><div class="product-price">$95.00</div><button class="small-button browse-add-button" type="button" value="P040">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P070"><div class="product-image" style="background-color:#FFD700;">Statement Earrings</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P070"><h3 class="product-title">Statement Earrings</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Gold</div><div class="product-card-footer"><div class="product-price">$42.00</div><button class="small-button browse-add-button" type="button" value="P070">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P085"><div class="product-image" style="background-color:#E3BC9A;">Strappy Heeled Sandals</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P085"><h3 class="product-title">Strappy Heeled Sandals</h3></button><div class="muted-text">Womens · Shoes</div><div class="muted-text">Color: Nude</div><div class="product-card-footer"><div class="product-price">$168.00</div><button class="small-button browse-add-button" type="button" value="P085">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P011"><div class="product-image" style="background-color:#4682B4;">Striped Button-Down Shirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P011"><h3 class="product-title">Striped Button-Down Shirt</h3></button><div class="muted-text">Mens · Tops</div><div class="muted-text">Color: Blue/White</div><div class="product-card-footer"><div class="product-price">$72.00</div><button class="small-button browse-add-button" type="button" value="P011">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P073"><div class="product-image" style="background-color:#9F4624;">Structured Tote Bag</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P073"><h3 class="product-title">Structured Tote Bag</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Cognac</div><div class="product-card-footer"><div class="product-price">$125.00</div><button class="small-button browse-add-button" type="button" value="P073">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P068"><div class="product-image" style="background-color:#B38B6D;">Suede Ankle Boots</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P068"><h3 class="product-title">Suede Ankle Boots</h3></button><div class="muted-text">Mens · Shoes</div><div class="muted-text">Color: Taupe</div><div class="product-card-footer"><div class="product-price">$178.00</div><button class="small-button browse-add-button" type="button" value="P068">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P036"><div class="product-image" style="background-color:#8B4513;">Teddy Bear Jacket</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P036"><h3 class="product-title">Teddy Bear Jacket</h3></button><div class="muted-text">Womens · Outerwear</div><div class="muted-text">Color: Brown</div><div class="product-card-footer"><div class="product-price">$175.00</div><button class="small-button browse-add-button" type="button" value="P036">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P046"><div class="product-image" style="background-color:#9370DB;">Tie-Dye Sweatshirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P046"><h3 class="product-title">Tie-Dye Sweatshirt</h3></button><div class="muted-text">Womens · Sweaters</div><div class="muted-text">Color: Multicolor</div><div class="product-card-footer"><div class="product-price">$72.00</div><button class="small-button browse-add-button" type="button" value="P046">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P097"><div class="product-image" style="background-color:#FFFF00;">Tie-Front Crop Top</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P097"><h3 class="product-title">Tie-Front Crop Top</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Yellow</div><div class="product-card-footer"><div class="product-price">$45.00</div><button class="small-button browse-add-button" type="button" value="P097">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P037"><div class="product-image" style="background-color:#B7410E;">Tiered Maxi Skirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P037"><h3 class="product-title">Tiered Maxi Skirt</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Rust</div><div class="product-card-footer"><div class="product-price">$89.00</div><button class="small-button browse-add-button" type="button" value="P037">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P028"><div class="product-image" style="background-color:#C19A6B;">Turtleneck Bodysuit</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P028"><h3 class="product-title">Turtleneck Bodysuit</h3></button><div class="muted-text">Womens · Tops</div><div class="muted-text">Color: Camel</div><div class="product-card-footer"><div class="product-price">$55.00</div><button class="small-button browse-add-button" type="button" value="P028">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P093"><div class="product-image" style="background-color:#FFC0CB;">Tweed Mini Skirt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P093"><h3 class="product-title">Tweed Mini Skirt</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Pink/White</div><div class="product-card-footer"><div class="product-price">$85.00</div><button class="small-button browse-add-button" type="button" value="P093">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P033"><div class="product-image" style="background-color:#808000;">Utility Jumpsuit</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P033"><h3 class="product-title">Utility Jumpsuit</h3></button><div class="muted-text">Womens · Jumpsuits</div><div class="muted-text">Color: Olive</div><div class="product-card-footer"><div class="product-price">$128.00</div><button class="small-button browse-add-button" type="button" value="P033">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P012"><div class="product-image" style="background-color:#800020;">Velvet Blazer</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P012"><h3 class="product-title">Velvet Blazer</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Burgundy</div><div class="product-card-footer"><div class="product-price">$215.00</div><button class="small-button browse-add-button" type="button" value="P012">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P050"><div class="product-image" style="background-color:#D2B48C;">Wide Belt</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P050"><h3 class="product-title">Wide Belt</h3></button><div class="muted-text">Womens · Accessories</div><div class="muted-text">Color: Tan</div><div class="product-card-footer"><div class="product-price">$45.00</div><button class="small-button browse-add-button" type="button" value="P050">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P013"><div class="product-image" style="background-color:#000000;">Wide-Leg Palazzo Pants</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P013"><h3 class="product-title">Wide-Leg Palazzo Pants</h3></button><div class="muted-text">Womens · Bottoms</div><div class="muted-text">Color: Black</div><div class="product-card-footer"><div class="product-price">$108.00</div><button class="small-button browse-add-button" type="button" value="P013">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P008"><div class="product-image" style="background-color:#C19A6B;">Wool Blend Trench Coat</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P008"><h3 class="product-title">Wool Blend Trench Coat</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Camel</div><div class="product-card-footer"><div class="product-price">$385.00</div><button class="small-button browse-add-button" type="button" value="P008">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P084"><div class="product-image" style="background-color:#36454F;">Wool Coat</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P084"><h3 class="product-title">Wool Coat</h3></button><div class="muted-text">Mens · Outerwear</div><div class="muted-text">Color: Charcoal</div><div class="product-card-footer"><div class="product-price">$395.00</div><button class="small-button browse-add-button" type="button" value="P084">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P081"><div class="product-image" style="background-color:#C19A6B;">Wool Fedora Hat</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P081"><h3 class="product-title">Wool Fedora Hat</h3></button><div class="muted-text">Mens · Accessories</div><div class="muted-text">Color: Camel</div><div class="product-card-footer"><div class="product-price">$98.00</div><button class="small-button browse-add-button" type="button" value="P081">Add to Cart</button></div></div></div><div class="product-card"><button class="image-button browse-open-button" type="button" value="P021"><div class="product-image" style="background-color:#FF7F50;">Wrap Midi Dress</div></button><div class="product-card-content"><button class="title-button browse-open-button" type="button" value="P021"><h3 class="product-title">Wrap Midi Dress</h3></button><div class="muted-text">Womens · Dresses</div><div class="muted-text">Color: Coral</div><div class="product-card-footer"><div class="product-price">$132.00</div><button class="small-button browse-add-button" type="button" value="P021">Add to Cart</button></div></div></div></div>
+                        <!-- Message area for browse feedback such as no matching products -->
+                        <div id="browse-message" class="browse-message hidden-box"></div>
+                        <!-- Main product grid for browse results -->
+                        <div id="browse-results" class="product-grid"></div>
                     </section>
                 </div>
             </section>
 
-            <section id="single-product-view" class="view" style="display: none;">
+            <!-- Single product view for displaying one selected product -->
+            <section id="single-product-view" class="view">
                 <div class="single-panel">
-                    <div id="single-product-content"><div class="cart-message">Choose a product from the Browse view to see its details.</div></div>
+                    <!-- Single product content is generated here -->
+                    <div id="single-product-content"></div>
                 </div>
             </section>
 
-            <section id="cart-view" class="view" style="display: none;">
+            <!-- Shopping cart view -->
+            <section id="cart-view" class="view">
                 <div class="cart-panel">
                     <h2>Shopping Cart</h2>
-                    <div id="cart-content"><div class="cart-layout"><div><div class="cart-message">Your cart is empty. Add items from the Browse or Single Product view.</div><div class="cart-items"><div class="cart-row cart-heading"><div></div><div><strong>Item</strong></div><div><strong>Product</strong></div><div class="cart-value"><strong>Color</strong></div><div class="cart-value"><strong>Size</strong></div><div class="cart-value"><strong>Price</strong></div><div class="cart-value"><strong>Qty</strong></div><div class="cart-value"><strong>Subtotal</strong></div></div></div></div><div class="cart-sidebar"><div class="shipping-card"><h3>Shipping</h3><div class="detail-row"><strong>Method</strong><br><select id="shipping-select" disabled=""><option value="Standard" selected="">Standard</option><option value="Express">Express</option><option value="Priority">Priority</option></select></div><div class="detail-row"><strong>Destination</strong><br><select id="destination-select" disabled=""><option value="Canada" selected="">Canada</option><option value="United States">United States</option><option value="International">International</option></select></div><div class="shipping-note">Tax is 5% only for Canada. Shipping is free when merchandise total is over $500.</div></div><div class="summary-card"><h3>Summary</h3><div class="summary-row"><span>Merchandise</span><strong>$0.00</strong></div><div class="summary-row"><span>Shipping</span><strong>$0.00</strong></div><div class="summary-row"><span>Tax</span><strong>$0.00</strong></div><div class="summary-row summary-total"><span>Total</span><strong>$0.00</strong></div><div class="checkout-wrap"><button id="checkout-button" class="primary-button" type="button" disabled="">Checkout</button></div></div></div></div></div>
+                    <!-- Cart rows, shipping controls, and totals are generated here -->
+                    <div id="cart-content"></div>
                 </div>
             </section>
         </div>
     </main>
 
+    <!-- Footer stays the same across all SPA views -->
     <footer>
         <div class="footer-inner">
             <div class="footer-text">
@@ -1105,6 +994,7 @@
     </footer>
 </div>
 
+<!-- About popup/dialog -->
 <div id="about-overlay" class="overlay">
     <div class="modal">
         <div class="modal-header">
@@ -1121,9 +1011,7 @@
                 <li><strong>Popup:</strong> About Us dialog</li>
                 <li><strong>Technologies:</strong> HTML, CSS, JavaScript</li>
                 <li><strong>Student:</strong> Tony Nguyen</li>
-                <li><strong>Repository link:</strong>
-                    <a href="https://github.com/tnguyentech/COMP-3512-Assignment-2/tree/main">GitHub Repo</a>
-                </li>
+                <li><strong>Repository link:</strong> <a href="https://github.com/tnguyentech/COMP-3512-Assignment-2/tree/main" target="_blank">GitHub Repo</a></li>
             </ul>
             <p>
                 The design uses the provided product data and keeps the required functionality inside one HTML page. Header and footer stay consistent while the content in the middle changes between views.
@@ -1137,10 +1025,13 @@
 
 <script id="product-data" type="application/json">[{"id":"P001","name":"Silk Wrap Blouse","gender":"womens","category":"Tops","description":"Elegant wrap blouse crafted from luxurious silk with adjustable tie waist and feminine draping. Perfect for office or evening occasions.","price":89.99,"cost":35,"color":[{"name":"Ivory","hex":"#FFFFF0"}],"sizes":["XS","S","M","L"],"material":"100% Silk","sales":{"domestic":142,"international":38,"total":180}},{"id":"P002","name":"High-Waist Linen Trousers","gender":"mens","category":"Bottoms","description":"Breathable high-waisted trousers in premium linen blend with tailored fit and wide leg silhouette. Features side pockets and zip closure.","price":115,"cost":50,"color":[{"name":"Beige","hex":"#F5F5DC"}],"sizes":["XS","S","M","L","XL"],"material":"Linen Blend","sales":{"domestic":98,"international":52,"total":150}},{"id":"P003","name":"Cashmere Turtleneck Sweater","gender":"mens","category":"Sweaters","description":"Ultra-soft pure cashmere turtleneck with ribbed trim and relaxed fit. A timeless wardrobe essential for layering or wearing solo.","price":195,"cost":100,"color":[{"name":"Charcoal","hex":"#36454F"}],"sizes":["S","M","L"],"material":"100% Cashmere","sales":{"domestic":215,"international":87,"total":302}},{"id":"P004","name":"Pleated Midi Skirt","gender":"womens","category":"Bottoms","description":"Sophisticated midi-length skirt with elegant knife pleats and elasticated waistband. Moves beautifully with every step.","price":78.5,"cost":35,"color":[{"name":"Navy","hex":"#000080"}],"sizes":["XS","S","M","L","XL"],"material":"Polyester Crepe","sales":{"domestic":167,"international":43,"total":210}},{"id":"P005","name":"Leather Moto Jacket","gender":"mens","category":"Outerwear","description":"Classic motorcycle jacket in supple genuine leather with asymmetric zip, belted waist, and multiple pockets. Edgy and timeless.","price":425,"cost":350,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L"],"material":"Genuine Leather","sales":{"domestic":78,"international":34,"total":112}},{"id":"P006","name":"Floral Print Maxi Dress","gender":"womens","category":"Dresses","description":"Flowing maxi dress featuring romantic floral print, tiered hem, and adjustable shoulder ties. Ideal for garden parties and summer events.","price":145,"cost":100,"color":[{"name":"Multicolor","hex":"#FFB6C1"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Voile","sales":{"domestic":203,"international":67,"total":270}},{"id":"P007","name":"Ribbed Tank Top","gender":"mens","category":"Tops","description":"Essential ribbed tank in soft cotton with slim fit and scooped neckline. Perfect basic for layering or wearing alone.","price":32,"cost":12,"color":[{"name":"White","hex":"#FFFFFF"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Rib","sales":{"domestic":456,"international":124,"total":580}},{"id":"P008","name":"Wool Blend Trench Coat","gender":"mens","category":"Outerwear","description":"Double-breasted trench coat in luxe wool blend with classic belted waist, storm flap, and satin lining. A forever piece.","price":385,"cost":200,"color":[{"name":"Camel","hex":"#C19A6B"}],"sizes":["S","M","L","XL"],"material":"Wool Blend","sales":{"domestic":134,"international":56,"total":190}},{"id":"P009","name":"Denim Boyfriend Jeans","gender":"womens","category":"Bottoms","description":"Relaxed boyfriend fit jeans in soft light wash denim with rolled cuffs and distressed details. Effortlessly cool.","price":98,"cost":35,"color":[{"name":"Light Wash","hex":"#9DB4C0"}],"sizes":["24","26","28","30","32"],"material":"Cotton Denim","sales":{"domestic":287,"international":93,"total":380}},{"id":"P010","name":"Satin Camisole","gender":"womens","category":"Tops","description":"Delicate satin camisole with adjustable straps and V-neckline. Pairs beautifully with blazers or high-waisted bottoms.","price":65,"cost":35,"color":[{"name":"Blush","hex":"#FFB6C1"}],"sizes":["XS","S","M","L"],"material":"Silk Satin","sales":{"domestic":198,"international":71,"total":269}},{"id":"P011","name":"Striped Button-Down Shirt","gender":"mens","category":"Tops","description":"Classic striped shirt in crisp cotton poplin with button-down collar and chest pocket. A preppy wardrobe staple.","price":72,"cost":32,"color":[{"name":"Blue/White","hex":"#4682B4"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Poplin","sales":{"domestic":223,"international":88,"total":311}},{"id":"P012","name":"Velvet Blazer","gender":"mens","category":"Outerwear","description":"Luxurious velvet blazer with single-button closure and structured shoulders. Adds instant sophistication to any outfit.","price":215,"cost":120,"color":[{"name":"Burgundy","hex":"#800020"}],"sizes":["XS","S","M","L"],"material":"Cotton Velvet","sales":{"domestic":89,"international":41,"total":130}},{"id":"P013","name":"Wide-Leg Palazzo Pants","gender":"womens","category":"Bottoms","description":"Dramatic wide-leg pants with high waist and fluid drape. Creates an elegant, elongated silhouette.","price":108,"cost":40,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L","XL"],"material":"Viscose","sales":{"domestic":176,"international":64,"total":240}},{"id":"P014","name":"Knit Cardigan","gender":"mens","category":"Sweaters","description":"Cozy merino wool cardigan with button-front closure and ribbed edges. Perfect for transitional weather.","price":125,"cost":70,"color":[{"name":"Oatmeal","hex":"#E9DCC9"}],"sizes":["S","M","L","XL"],"material":"Merino Wool","sales":{"domestic":267,"international":102,"total":369}},{"id":"P015","name":"Sequin Mini Dress","gender":"womens","category":"Dresses","description":"Show-stopping mini dress covered in shimmering sequins with bodycon fit. Your go-to for special occasions.","price":189,"cost":120,"color":[{"name":"Gold","hex":"#FFD700"}],"sizes":["XS","S","M","L"],"material":"Polyester Sequin","sales":{"domestic":145,"international":48,"total":193}},{"id":"P016","name":"Cotton T-Shirt Dress","gender":"womens","category":"Dresses","description":"Easy-wearing t-shirt dress in organic cotton with relaxed fit and side pockets. Comfortable yet chic.","price":58,"cost":35,"color":[{"name":"Gray","hex":"#808080"}],"sizes":["XS","S","M","L","XL"],"material":"Organic Cotton","sales":{"domestic":312,"international":118,"total":430}},{"id":"P017","name":"Cropped Denim Jacket","gender":"mens","category":"Outerwear","description":"Classic cropped denim jacket with button front and chest pockets. A versatile layering piece for all seasons.","price":95,"cost":45,"color":[{"name":"Medium Wash","hex":"#5B7C99"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Denim","sales":{"domestic":198,"international":76,"total":274}},{"id":"P018","name":"Chiffon Blouse","gender":"womens","category":"Tops","description":"Ethereal chiffon blouse with sheer sleeves and delicate button details. Feminine and romantic.","price":79,"cost":35,"color":[{"name":"Lavender","hex":"#E6E6FA"}],"sizes":["XS","S","M","L"],"material":"Polyester Chiffon","sales":{"domestic":154,"international":59,"total":213}},{"id":"P019","name":"Skinny Ankle Jeans","gender":"womens","category":"Bottoms","description":"Figure-hugging skinny jeans in dark stretch denim with ankle-length hem. Sleek and flattering.","price":92,"cost":50,"color":[{"name":"Dark Wash","hex":"#2F4F4F"}],"sizes":["24","26","28","30","32"],"material":"Stretch Denim","sales":{"domestic":378,"international":142,"total":520}},{"id":"P020","name":"Puffer Vest","gender":"mens","category":"Outerwear","description":"Quilted puffer vest with stand collar and zip pockets. Lightweight warmth for layering.","price":135,"cost":100,"color":[{"name":"Olive","hex":"#808000"}],"sizes":["XS","S","M","L","XL"],"material":"Nylon","sales":{"domestic":167,"international":53,"total":220}},{"id":"P021","name":"Wrap Midi Dress","gender":"womens","category":"Dresses","description":"Flattering wrap dress in soft jersey knit with tie waist and flutter sleeves. Universally flattering design.","price":132,"cost":115,"color":[{"name":"Coral","hex":"#FF7F50"}],"sizes":["XS","S","M","L","XL"],"material":"Jersey Knit","sales":{"domestic":189,"international":72,"total":261}},{"id":"P022","name":"Crew Neck Pullover","gender":"mens","category":"Sweaters","description":"Classic crew neck sweater in soft cotton blend with ribbed trim. A casual essential for everyday wear.","price":88,"cost":35,"color":[{"name":"Navy","hex":"#000080"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Blend","sales":{"domestic":245,"international":97,"total":342}},{"id":"P023","name":"Pencil Skirt","gender":"womens","category":"Bottoms","description":"Polished pencil skirt in stretch ponte knit with back slit and concealed zip. Office-ready elegance.","price":68,"cost":25,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L","XL"],"material":"Ponte Knit","sales":{"domestic":201,"international":84,"total":285}},{"id":"P024","name":"Oversized Flannel Shirt","gender":"mens","category":"Tops","description":"Cozy oversized flannel in classic plaid with button front. Perfect for layering or wearing as a light jacket.","price":62,"cost":45,"color":[{"name":"Red Plaid","hex":"#DC143C"}],"sizes":["S","M","L","XL"],"material":"Cotton Flannel","sales":{"domestic":276,"international":89,"total":365}},{"id":"P025","name":"Faux Fur Coat","gender":"womens","category":"Outerwear","description":"Glamorous faux fur coat with hook and eye closure. Luxuriously soft and statement-making.","price":295,"cost":185,"color":[{"name":"Cream","hex":"#FFFDD0"}],"sizes":["S","M","L"],"material":"Faux Fur","sales":{"domestic":67,"international":28,"total":95}},{"id":"P026","name":"Lace Trim Camisole","gender":"womens","category":"Tops","description":"Soft modal camisole with delicate lace trim at neckline and adjustable straps. A versatile layering essential.","price":48,"cost":35,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L","XL"],"material":"Modal","sales":{"domestic":334,"international":116,"total":450}},{"id":"P027","name":"Paperbag Waist Shorts","gender":"womens","category":"Bottoms","description":"Tailored shorts with gathered paperbag waist and tie belt. Stylish and comfortable for warm weather.","price":58,"cost":30,"color":[{"name":"Khaki","hex":"#C3B091"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Twill","sales":{"domestic":223,"international":78,"total":301}},{"id":"P028","name":"Turtleneck Bodysuit","gender":"womens","category":"Tops","description":"Sleek ribbed bodysuit with turtleneck and snap closure. Creates a smooth, tucked-in look.","price":55,"cost":40,"color":[{"name":"Camel","hex":"#C19A6B"}],"sizes":["XS","S","M","L"],"material":"Ribbed Cotton","sales":{"domestic":187,"international":69,"total":256}},{"id":"P029","name":"A-Line Denim Skirt","gender":"womens","category":"Bottoms","description":"Retro-inspired A-line skirt in medium wash denim with front button detail. Flirty and fun.","price":72,"cost":30,"color":[{"name":"Medium Wash","hex":"#5B7C99"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Denim","sales":{"domestic":198,"international":82,"total":280}},{"id":"P030","name":"Quilted Bomber Jacket","gender":"mens","category":"Outerwear","description":"Sporty quilted bomber with zip front and ribbed cuffs. Combines comfort with urban style.","price":165,"cost":75,"color":[{"name":"Forest Green","hex":"#228B22"}],"sizes":["XS","S","M","L","XL"],"material":"Nylon","sales":{"domestic":143,"international":51,"total":194}},{"id":"P031","name":"Slip Dress","gender":"womens","category":"Dresses","description":"Minimalist slip dress in silky charmeuse with bias cut and delicate straps. Effortlessly elegant.","price":112,"cost":75,"color":[{"name":"Champagne","hex":"#F7E7CE"}],"sizes":["XS","S","M","L"],"material":"Silk Charmeuse","sales":{"domestic":156,"international":64,"total":220}},{"id":"P032","name":"Cable Knit Sweater","gender":"mens","category":"Sweaters","description":"Traditional cable knit sweater in wool blend with crew neck. Cozy texture and timeless appeal.","price":145,"cost":155,"color":[{"name":"Ivory","hex":"#FFFFF0"}],"sizes":["XS","S","M","L","XL"],"material":"Wool Blend","sales":{"domestic":212,"international":88,"total":300}},{"id":"P033","name":"Utility Jumpsuit","gender":"womens","category":"Jumpsuits","description":"Functional utility jumpsuit with multiple pockets, belt loops, and adjustable fit. One-piece ease with style.","price":128,"cost":65,"color":[{"name":"Olive","hex":"#808000"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Canvas","sales":{"domestic":98,"international":42,"total":140}},{"id":"P034","name":"Peplum Top","gender":"womens","category":"Tops","description":"Fitted peplum top with flared hem detail and back zip. Flattering and feminine silhouette.","price":76,"cost":25,"color":[{"name":"Dusty Rose","hex":"#DCAE96"}],"sizes":["XS","S","M","L"],"material":"Ponte Knit","sales":{"domestic":167,"international":58,"total":225}},{"id":"P035","name":"High-Rise Flare Jeans","gender":"womens","category":"Bottoms","description":"Retro-inspired flare jeans with high rise and flattering leg-lengthening silhouette. Vintage cool.","price":105,"cost":85,"color":[{"name":"Dark Wash","hex":"#2F4F4F"}],"sizes":["24","26","28","30","32"],"material":"Stretch Denim","sales":{"domestic":234,"international":91,"total":325}},{"id":"P036","name":"Teddy Bear Jacket","gender":"womens","category":"Outerwear","description":"Ultra-plush sherpa fleece jacket with zip front and side pockets. Incredibly soft and warm.","price":175,"cost":90,"color":[{"name":"Brown","hex":"#8B4513"}],"sizes":["S","M","L","XL"],"material":"Sherpa Fleece","sales":{"domestic":189,"international":67,"total":256}},{"id":"P037","name":"Tiered Maxi Skirt","gender":"womens","category":"Bottoms","description":"Bohemian tiered maxi skirt in airy cotton gauze with elasticated waist. Free-spirited and flowing.","price":89,"cost":35,"color":[{"name":"Rust","hex":"#B7410E"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Gauze","sales":{"domestic":145,"international":56,"total":201}},{"id":"P038","name":"Mesh Long Sleeve Top","gender":"mens","category":"Tops","description":"Sheer mesh top with long sleeves and fitted silhouette. Perfect for layering or making a statement.","price":42,"cost":15,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L","XL"],"material":"Polyester Mesh","sales":{"domestic":267,"international":98,"total":365}},{"id":"P039","name":"Linen Blend Blazer","gender":"mens","category":"Outerwear","description":"Relaxed linen blend blazer with single-button closure and notch lapels. Effortless summer sophistication.","price":185,"cost":100,"color":[{"name":"Stone","hex":"#928E85"}],"sizes":["XS","S","M","L","XL"],"material":"Linen Blend","sales":{"domestic":123,"international":57,"total":180}},{"id":"P040","name":"Smocked Sundress","gender":"womens","category":"Dresses","description":"Sweet sundress with smocked bodice and flowy skirt. Perfect for picnics and sunny days.","price":95,"cost":35,"color":[{"name":"Yellow","hex":"#FFFF00"}],"sizes":["XS","S","M","L"],"material":"Cotton Poplin","sales":{"domestic":178,"international":62,"total":240}},{"id":"P041","name":"Mock Neck Sweater","gender":"mens","category":"Sweaters","description":"Modern mock neck sweater with slim fit and soft texture. Polished and comfortable.","price":98,"cost":35,"color":[{"name":"Burgundy","hex":"#800020"}],"sizes":["XS","S","M","L","XL"],"material":"Acrylic Blend","sales":{"domestic":198,"international":76,"total":274}},{"id":"P042","name":"Cargo Pants","gender":"mens","category":"Bottoms","description":"Utilitarian cargo pants with multiple pockets and relaxed fit. Function meets fashion.","price":88,"cost":40,"color":[{"name":"Army Green","hex":"#4B5320"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Twill","sales":{"domestic":211,"international":84,"total":295}},{"id":"P043","name":"Off-Shoulder Crop Top","gender":"womens","category":"Tops","description":"Flirty off-shoulder crop top in ribbed cotton with elastic neckline. Shows just the right amount of skin.","price":52,"cost":15,"color":[{"name":"White","hex":"#FFFFFF"}],"sizes":["XS","S","M","L"],"material":"Cotton Rib","sales":{"domestic":289,"international":101,"total":390}},{"id":"P044","name":"Belted Trench Dress","gender":"womens","category":"Dresses","description":"Sophisticated shirt dress with trench coat styling, belted waist, and button front. Classic with modern flair.","price":168,"cost":100,"color":[{"name":"Tan","hex":"#D2B48C"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Blend","sales":{"domestic":134,"international":46,"total":180}},{"id":"P045","name":"Hooded Parka","gender":"mens","category":"Outerwear","description":"Insulated parka with drawstring hood and multiple zip pockets. Maximum warmth and protection.","price":245,"cost":135,"color":[{"name":"Navy","hex":"#000080"}],"sizes":["S","M","L","XL"],"material":"Polyester","sales":{"domestic":156,"international":62,"total":218}},{"id":"P046","name":"Tie-Dye Sweatshirt","gender":"womens","category":"Sweaters","description":"Fun and relaxed tie-dye sweatshirt in soft cotton fleece with crew neck. Unique colorway on every piece.","price":72,"cost":35,"color":[{"name":"Multicolor","hex":"#9370DB"}],"sizes":["S","M","L","XL"],"material":"Cotton Fleece","sales":{"domestic":312,"international":128,"total":440}},{"id":"P047","name":"Leather Mini Skirt","gender":"womens","category":"Bottoms","description":"Edgy faux leather mini skirt with high waist and back zip. Pairs perfectly with boots or sneakers.","price":158,"cost":105,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L"],"material":"Faux Leather","sales":{"domestic":178,"international":67,"total":245}},{"id":"P048","name":"Chambray Shirt Dress","gender":"womens","category":"Dresses","description":"Easy button-front shirt dress in soft chambray with rolled sleeves and chest pockets. Effortlessly versatile.","price":85,"cost":35,"color":[{"name":"Light Blue","hex":"#ADD8E6"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Chambray","sales":{"domestic":223,"international":87,"total":310}},{"id":"P049","name":"Cropped Cardigan","gender":"mens","category":"Sweaters","description":"Sweet cropped cardigan in cotton knit with button front and three-quarter sleeves. Vintage-inspired charm.","price":68,"cost":20,"color":[{"name":"Mint","hex":"#98FF98"}],"sizes":["XS","S","M","L"],"material":"Cotton Knit","sales":{"domestic":245,"international":93,"total":338}},{"id":"P050","name":"Wide Belt","gender":"womens","category":"Accessories","description":"Statement wide belt in faux leather with cinching buckle. Instantly elevates any outfit.","price":45,"cost":35,"color":[{"name":"Tan","hex":"#D2B48C"}],"sizes":["S/M","L/XL"],"material":"Faux Leather","sales":{"domestic":398,"international":152,"total":550}},{"id":"P051","name":"Satin Midi Skirt","gender":"womens","category":"Bottoms","description":"Luxe satin midi skirt with bias cut and side slit. Drapes beautifully and moves with elegant fluidity.","price":95,"cost":55,"color":[{"name":"Emerald","hex":"#50C878"}],"sizes":["XS","S","M","L","XL"],"material":"Polyester Satin","sales":{"domestic":187,"international":73,"total":260}},{"id":"P052","name":"Quilted Crossbody Bag","gender":"womens","category":"Accessories","description":"Chic quilted crossbody with chain strap and multiple compartments. Compact yet surprisingly spacious.","price":78,"cost":30,"color":[{"name":"Black","hex":"#000000"}],"sizes":["One Size"],"material":"Vegan Leather","sales":{"domestic":456,"international":198,"total":654}},{"id":"P053","name":"Cashmere Beanie","gender":"mens","category":"Accessories","description":"Soft cashmere beanie with ribbed knit and folded brim. Warmth and luxury for cold days.","price":65,"cost":50,"color":[{"name":"Gray","hex":"#808080"}],"sizes":["One Size"],"material":"100% Cashmere","sales":{"domestic":289,"international":112,"total":401}},{"id":"P054","name":"Halter Neck Top","gender":"womens","category":"Tops","description":"Sleek halter top with tie neck and open back. Perfect for warm evenings and special occasions.","price":58,"cost":20,"color":[{"name":"Wine","hex":"#722F37"}],"sizes":["XS","S","M","L"],"material":"Jersey Knit","sales":{"domestic":203,"international":76,"total":279}},{"id":"P055","name":"Corduroy Overalls","gender":"mens","category":"Jumpsuits","description":"Vintage-inspired corduroy overalls with adjustable straps and multiple pockets. Nostalgic and practical.","price":118,"cost":90,"color":[{"name":"Caramel","hex":"#C68E17"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Corduroy","sales":{"domestic":134,"international":47,"total":181}},{"id":"P056","name":"Silk Scarf","gender":"womens","category":"Accessories","description":"Square silk scarf with hand-rolled edges and artistic print. Wear around neck, in hair, or on handbags.","price":52,"cost":20,"color":[{"name":"Multicolor","hex":"#FF6B9D"}],"sizes":["One Size"],"material":"100% Silk","sales":{"domestic":367,"international":143,"total":510}},{"id":"P057","name":"Knit Midi Dress","gender":"womens","category":"Dresses","description":"Form-fitting knit dress with long sleeves and turtleneck. Sophisticated simplicity with stretchy comfort.","price":108,"cost":35,"color":[{"name":"Charcoal","hex":"#36454F"}],"sizes":["XS","S","M","L","XL"],"material":"Ribbed Knit","sales":{"domestic":198,"international":82,"total":280}},{"id":"P058","name":"Leather Loafers","gender":"mens","category":"Shoes","description":"Classic leather loafers with cushioned insole and low heel. Timeless footwear for everyday elegance.","price":145,"cost":100,"color":[{"name":"Brown","hex":"#8B4513"}],"sizes":["6","7","8","9","10"],"material":"Genuine Leather","sales":{"domestic":234,"international":89,"total":323}},{"id":"P059","name":"Faux Leather Pants","gender":"womens","category":"Bottoms","description":"Sleek faux leather pants with high waist and skinny fit. Bold statement piece with all-day comfort.","price":128,"cost":35,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L","XL"],"material":"Faux Leather","sales":{"domestic":167,"international":64,"total":231}},{"id":"P060","name":"Ruffled Blouse","gender":"womens","category":"Tops","description":"Romantic blouse with cascading ruffles, pussy bow tie, and sheer sleeves. Feminine and eye-catching.","price":85,"cost":20,"color":[{"name":"Cream","hex":"#FFFDD0"}],"sizes":["XS","S","M","L"],"material":"Chiffon","sales":{"domestic":145,"international":58,"total":203}},{"id":"P061","name":"Chelsea Ankle Boots","gender":"mens","category":"Shoes","description":"Classic Chelsea boots with elastic side panels and block heel. Versatile style for any season.","price":165,"cost":60,"color":[{"name":"Black","hex":"#000000"}],"sizes":["6","7","8","9","10"],"material":"Faux Leather","sales":{"domestic":312,"international":134,"total":446}},{"id":"P062","name":"Cashmere Wrap Scarf","gender":"womens","category":"Accessories","description":"Oversized cashmere wrap scarf that doubles as a shawl. Ultimate luxury and warmth.","price":158,"cost":65,"color":[{"name":"Camel","hex":"#C19A6B"}],"sizes":["One Size"],"material":"100% Cashmere","sales":{"domestic":189,"international":76,"total":265}},{"id":"P063","name":"Backless Bodysuit","gender":"womens","category":"Tops","description":"Daring backless bodysuit with high neck and long sleeves. Sleek silhouette with dramatic impact.","price":68,"cost":20,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L"],"material":"Modal Blend","sales":{"domestic":223,"international":87,"total":310}},{"id":"P064","name":"Plaid Blazer","gender":"mens","category":"Outerwear","description":"Oversized plaid blazer with double-breasted front and padded shoulders. Power dressing with pattern.","price":195,"cost":100,"color":[{"name":"Gray/Black","hex":"#708090"}],"sizes":["XS","S","M","L","XL"],"material":"Wool Blend","sales":{"domestic":156,"international":61,"total":217}},{"id":"P065","name":"Silk Pajama Set","gender":"mens","category":"Loungewear","description":"Luxurious silk pajama set with contrast piping and button-front top. Sleep in style and comfort.","price":185,"cost":70,"color":[{"name":"Navy","hex":"#000080"}],"sizes":["XS","S","M","L","XL"],"material":"100% Silk","sales":{"domestic":178,"international":69,"total":247}},{"id":"P066","name":"Cowl Neck Sweater Dress","gender":"womens","category":"Dresses","description":"Cozy sweater dress with draped cowl neck and relaxed fit. Effortless warmth and elegance.","price":135,"cost":90,"color":[{"name":"Burgundy","hex":"#800020"}],"sizes":["XS","S","M","L","XL"],"material":"Wool Blend","sales":{"domestic":201,"international":78,"total":279}},{"id":"P067","name":"Bucket Hat","gender":"mens","category":"Accessories","description":"Trendy bucket hat in soft canvas with wide brim. Sun protection meets streetwear style.","price":38,"cost":15,"color":[{"name":"Khaki","hex":"#C3B091"}],"sizes":["S/M","L/XL"],"material":"Cotton Canvas","sales":{"domestic":398,"international":156,"total":554}},{"id":"P068","name":"Suede Ankle Boots","gender":"mens","category":"Shoes","description":"Sophisticated suede ankle boots with pointed toe and kitten heel. Refined elegance for any occasion.","price":178,"cost":125,"color":[{"name":"Taupe","hex":"#B38B6D"}],"sizes":["6","7","8","9","10"],"material":"Suede","sales":{"domestic":245,"international":98,"total":343}},{"id":"P069","name":"Ribbed Lounge Set","gender":"mens","category":"Loungewear","description":"Matching ribbed lounge set with crop top and high-waisted leggings. Comfort meets contemporary style.","price":88,"cost":30,"color":[{"name":"Sage","hex":"#9DC183"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Rib","sales":{"domestic":412,"international":167,"total":579}},{"id":"P070","name":"Statement Earrings","gender":"womens","category":"Accessories","description":"Bold geometric earrings with gold-tone finish. Instantly elevate any outfit with these showstoppers.","price":42,"cost":15,"color":[{"name":"Gold","hex":"#FFD700"}],"sizes":["One Size"],"material":"Metal Alloy","sales":{"domestic":523,"international":201,"total":724}},{"id":"P071","name":"Asymmetric Hem Dress","gender":"womens","category":"Dresses","description":"Modern dress with asymmetric hemline and one-shoulder design. Architectural and striking.","price":152,"cost":70,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L"],"material":"Crepe","sales":{"domestic":134,"international":52,"total":186}},{"id":"P072","name":"Cashmere Joggers","gender":"womens","category":"Loungewear","description":"Luxurious cashmere joggers with drawstring waist and tapered leg. Elevated comfort for lounging.","price":225,"cost":175,"color":[{"name":"Heather Gray","hex":"#BCC6CC"}],"sizes":["XS","S","M","L","XL"],"material":"100% Cashmere","sales":{"domestic":98,"international":41,"total":139}},{"id":"P073","name":"Structured Tote Bag","gender":"womens","category":"Accessories","description":"Professional structured tote with interior pockets and detachable strap. Perfect for work or weekend.","price":125,"cost":35,"color":[{"name":"Cognac","hex":"#9F4624"}],"sizes":["One Size"],"material":"Vegan Leather","sales":{"domestic":367,"international":148,"total":515}},{"id":"P074","name":"Platform Sneakers","gender":"womens","category":"Shoes","description":"On-trend platform sneakers with chunky sole and leather upper. Comfort with height boost.","price":298,"cost":135,"color":[{"name":"White","hex":"#FFFFFF"}],"sizes":["6","7","8","9","10"],"material":"Leather","sales":{"domestic":445,"international":189,"total":634}},{"id":"P075","name":"Cut-Out Midi Dress","gender":"womens","category":"Dresses","description":"Sultry midi dress with strategic cut-outs and bodycon fit. Show some skin with sophisticated style.","price":118,"cost":80,"color":[{"name":"Red","hex":"#FF0000"}],"sizes":["XS","S","M","L"],"material":"Jersey Knit","sales":{"domestic":167,"international":62,"total":229}},{"id":"P076","name":"Embroidered Denim Jacket","gender":"womens","category":"Outerwear","description":"Classic denim jacket enhanced with beautiful floral embroidery on back and sleeves. Artisan detail meets casual cool.","price":135,"cost":95,"color":[{"name":"Medium Wash","hex":"#5B7C99"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Denim","sales":{"domestic":178,"international":71,"total":249}},{"id":"P077","name":"Leather Belt Bag","gender":"womens","category":"Accessories","description":"Hands-free leather belt bag with adjustable strap and zip closure. Practical style for active lifestyles.","price":72,"cost":35,"color":[{"name":"Black","hex":"#000000"}],"sizes":["One Size"],"material":"Genuine Leather","sales":{"domestic":389,"international":156,"total":545}},{"id":"P078","name":"Satin Bomber Jacket","gender":"womens","category":"Outerwear","description":"Luxe satin bomber with quilted lining and zip front. Sporty silhouette in elevated fabric.","price":348,"cost":125,"color":[{"name":"Emerald","hex":"#50C878"}],"sizes":["XS","S","M","L","XL"],"material":"Polyester Satin","sales":{"domestic":156,"international":59,"total":215}},{"id":"P079","name":"Knit Bralette","gender":"womens","category":"Intimates","description":"Soft knit bralette with removable pads and adjustable straps. Comfortable support for everyday wear.","price":35,"cost":10,"color":[{"name":"Nude","hex":"#E3BC9A"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Blend","sales":{"domestic":467,"international":178,"total":645}},{"id":"P080","name":"High-Neck Maxi Dress","gender":"womens","category":"Dresses","description":"Elegant maxi dress with high neckline and fitted bodice. Flows gracefully with timeless sophistication.","price":165,"cost":100,"color":[{"name":"Forest Green","hex":"#228B22"}],"sizes":["XS","S","M","L","XL"],"material":"Jersey Knit","sales":{"domestic":189,"international":73,"total":262}},{"id":"P081","name":"Wool Fedora Hat","gender":"mens","category":"Accessories","description":"Classic fedora in soft wool felt with ribbon band. Adds instant polish to any ensemble.","price":98,"cost":35,"color":[{"name":"Camel","hex":"#C19A6B"}],"sizes":["S/M","L/XL"],"material":"Wool Felt","sales":{"domestic":234,"international":92,"total":326}},{"id":"P082","name":"Seamless Bodysuit","gender":"womens","category":"Intimates","description":"Ultra-smooth seamless bodysuit with scoop neck and thong bottom. Invisible under clothes.","price":48,"cost":10,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L","XL"],"material":"Nylon Spandex","sales":{"domestic":512,"international":198,"total":710}},{"id":"P083","name":"Corset Top","gender":"womens","category":"Tops","description":"Structured corset top with boning and lace-up back. Dramatic shape and vintage-inspired appeal.","price":95,"cost":35,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L"],"material":"Cotton Blend","sales":{"domestic":167,"international":64,"total":231}},{"id":"P084","name":"Wool Coat","gender":"mens","category":"Outerwear","description":"Timeless wool coat with notch collar and single-breasted closure. Investment piece for years to come.","price":395,"cost":200,"color":[{"name":"Charcoal","hex":"#36454F"}],"sizes":["XS","S","M","L","XL"],"material":"Wool Blend","sales":{"domestic":98,"international":43,"total":141}},{"id":"P085","name":"Strappy Heeled Sandals","gender":"womens","category":"Shoes","description":"Delicate strappy sandals with slim heel and ankle tie. Perfect for special occasions and evenings out.","price":168,"cost":90,"color":[{"name":"Nude","hex":"#E3BC9A"}],"sizes":["6","7","8","9","10"],"material":"Faux Leather","sales":{"domestic":278,"international":112,"total":390}},{"id":"P086","name":"Crochet Beach Cover-Up","gender":"womens","category":"Swimwear","description":"Breezy crochet cover-up with open weave and relaxed fit. Beach-to-bar versatility.","price":78,"cost":35,"color":[{"name":"White","hex":"#FFFFFF"}],"sizes":["XS","S","M","L"],"material":"Cotton Crochet","sales":{"domestic":145,"international":58,"total":203}},{"id":"P087","name":"High-Waisted Bikini Set","gender":"womens","category":"Swimwear","description":"Retro-inspired high-waisted bikini with supportive top and flattering bottom. Vintage glamour for the pool.","price":88,"cost":30,"color":[{"name":"Red","hex":"#FF0000"}],"sizes":["XS","S","M","L","XL"],"material":"Nylon Spandex","sales":{"domestic":312,"international":128,"total":440}},{"id":"P088","name":"Cashmere Gloves","gender":"mens","category":"Accessories","description":"Luxuriously soft cashmere gloves with ribbed cuffs. Keep hands warm in ultimate comfort.","price":75,"cost":55,"color":[{"name":"Black","hex":"#000000"}],"sizes":["S/M","L/XL"],"material":"100% Cashmere","sales":{"domestic":201,"international":84,"total":285}},{"id":"P089","name":"Pintuck Blouse","gender":"womens","category":"Tops","description":"Refined blouse with delicate pintuck detailing and mother-of-pearl buttons. Understated elegance.","price":92,"cost":70,"color":[{"name":"Ivory","hex":"#FFFFF0"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Poplin","sales":{"domestic":178,"international":69,"total":247}},{"id":"P090","name":"Mules with Block Heel","gender":"womens","category":"Shoes","description":"Easy slip-on mules with comfortable block heel and pointed toe. Effortless sophistication.","price":205,"cost":105,"color":[{"name":"Tan","hex":"#D2B48C"}],"sizes":["6","7","8","9","10"],"material":"Faux Leather","sales":{"domestic":345,"international":139,"total":484}},{"id":"P091","name":"Quilted Puffer Jacket","gender":"womens","category":"Outerwear","description":"Warm quilted puffer with high collar and zip pockets. Lightweight insulation for cold weather.","price":185,"cost":95,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L","XL"],"material":"Nylon","sales":{"domestic":223,"international":87,"total":310}},{"id":"P092","name":"Lace Bralette Set","gender":"womens","category":"Intimates","description":"Delicate lace bralette and matching panty set. Romantic and feminine lingerie essentials.","price":82,"cost":35,"color":[{"name":"Blush","hex":"#FFB6C1"}],"sizes":["XS","S","M","L","XL"],"material":"Lace","sales":{"domestic":389,"international":147,"total":536}},{"id":"P093","name":"Tweed Mini Skirt","gender":"womens","category":"Bottoms","description":"Chic tweed mini with frayed edges and zip closure. Parisian-inspired sophistication.","price":85,"cost":25,"color":[{"name":"Pink/White","hex":"#FFC0CB"}],"sizes":["XS","S","M","L"],"material":"Tweed","sales":{"domestic":198,"international":76,"total":274}},{"id":"P094","name":"Oversized Sunglasses","gender":"womens","category":"Accessories","description":"Glamorous oversized sunglasses with UV protection. Classic style with modern flair.","price":95,"cost":65,"color":[{"name":"Tortoise","hex":"#8B4513"}],"sizes":["One Size"],"material":"Acetate","sales":{"domestic":478,"international":192,"total":670}},{"id":"P095","name":"Cashmere Robe","gender":"womens","category":"Loungewear","description":"Sumptuous cashmere robe with shawl collar and tie waist. Ultimate luxury for relaxing at home.","price":385,"cost":225,"color":[{"name":"Oatmeal","hex":"#E9DCC9"}],"sizes":["S/M","L/XL"],"material":"100% Cashmere","sales":{"domestic":67,"international":28,"total":95}},{"id":"P096","name":"One-Piece Swimsuit","gender":"womens","category":"Swimwear","description":"Sleek one-piece with plunging neckline and low back. Sophisticated swim style with support.","price":125,"cost":80,"color":[{"name":"Black","hex":"#000000"}],"sizes":["XS","S","M","L","XL"],"material":"Nylon Spandex","sales":{"domestic":267,"international":108,"total":375}},{"id":"P097","name":"Tie-Front Crop Top","gender":"womens","category":"Tops","description":"Playful crop top with front tie detail and short sleeves. Sweet and flirty summer staple.","price":45,"cost":12,"color":[{"name":"Yellow","hex":"#FFFF00"}],"sizes":["XS","S","M","L","XL"],"material":"Cotton Poplin","sales":{"domestic":334,"international":126,"total":460}},{"id":"P098","name":"Leather Shoulder Bag","gender":"womens","category":"Accessories","description":"Classic leather shoulder bag with gold hardware and interior pockets. Timeless everyday essential.","price":215,"cost":135,"color":[{"name":"Black","hex":"#000000"}],"sizes":["One Size"],"material":"Genuine Leather","sales":{"domestic":289,"international":117,"total":406}},{"id":"P099","name":"Culottes","gender":"womens","category":"Bottoms","description":"Wide-leg culottes with high waist and cropped length. Modern silhouette with vintage inspiration.","price":98,"cost":35,"color":[{"name":"Navy","hex":"#000080"}],"sizes":["XS","S","M","L","XL"],"material":"Linen Blend","sales":{"domestic":156,"international":62,"total":218}},{"id":"P100","name":"Embellished Clutch","gender":"womens","category":"Accessories","description":"Evening clutch adorned with crystals and beading. Statement piece for special occasions.","price":88,"cost":70,"color":[{"name":"Gold","hex":"#FFD700"}],"sizes":["One Size"],"material":"Satin","sales":{"domestic":178,"international":73,"total":251}}]</script>
 <script>
+    // Start the single-page application after the HTML content is loaded
     document.addEventListener("DOMContentLoaded", initializeApp);
 
+    // Store all product objects parsed from the embedded JSON data
     let products = [];
 
+    // Track the current state of the application
     let appState = {
         currentView: "home",
         selectedProductId: "",
@@ -1158,6 +1049,7 @@
         shippingDestination: "Canada"
     };
 
+    // Load data, attach event handlers, render views, and show the Home view
     function initializeApp() {
         loadProducts();
         setupStaticEventListeners();
@@ -1170,6 +1062,7 @@
         showView("home");
     }
 
+    // Read and parse the embedded JSON product data
     function loadProducts() {
         let rawJson = document.getElementById("product-data").textContent;
 
@@ -1182,6 +1075,7 @@
         }
     }
 
+    // Register event handlers for navigation, sorting, popup controls, and filter clearing
     function setupStaticEventListeners() {
         document.getElementById("nav-home").addEventListener("click", function () {
             showView("home");
@@ -1225,6 +1119,7 @@
         });
     }
 
+    // Show one SPA view and hide the others
     function showView(viewName) {
         hideAllViews();
 
@@ -1245,6 +1140,7 @@
         updateActiveNavigation(viewName);
     }
 
+    // Hide all main content views before showing the selected one
     function hideAllViews() {
         document.getElementById("home-view").style.display = "none";
         document.getElementById("browse-view").style.display = "none";
@@ -1252,6 +1148,7 @@
         document.getElementById("cart-view").style.display = "none";
     }
 
+    // Highlight the correct navigation button for the current view
     function updateActiveNavigation(viewName) {
         document.getElementById("nav-home").classList.remove("active");
         document.getElementById("nav-browse").classList.remove("active");
@@ -1264,11 +1161,13 @@
         }
     }
 
+    // Render the Home view sections
     function renderHomeView() {
         renderHomeCategories();
         renderFeaturedProducts();
     }
 
+    // Render clickable category cards on the Home view
     function renderHomeCategories() {
         let categoryGrid = document.getElementById("home-category-grid");
         let categories = getUniqueValues("category");
@@ -1280,15 +1179,35 @@
         }
 
         for (let i = 0; i < limit; i++) {
-            html += '<div class="category-card">';
+            html += '<button class="category-card category-button" type="button" value="' + categories[i] + '">';
             html += '<div class="category-icon"></div>';
             html += '<div class="category-name">' + categories[i] + '</div>';
-            html += '</div>';
+            html += '</button>';
         }
 
         categoryGrid.innerHTML = html;
+
+        let categoryButtons = document.querySelectorAll(".category-button");
+        for (let i = 0; i < categoryButtons.length; i++) {
+            categoryButtons[i].addEventListener("click", function () {
+                let chosenCategory = this.value;
+                clearAllFilters();
+                updateFilterState("category", chosenCategory, true);
+
+                let checkboxes = document.querySelectorAll('.filter-checkbox');
+                for (let j = 0; j < checkboxes.length; j++) {
+                    if (checkboxes[j].name === "category" && checkboxes[j].value === chosenCategory) {
+                        checkboxes[j].checked = true;
+                    }
+                }
+
+                renderBrowseView();
+                showView("browse");
+            });
+        }
     }
 
+    // Render featured product cards on the Home view
     function renderFeaturedProducts() {
         let featuredContainer = document.getElementById("featured-products");
         let featuredProducts = getFeaturedProducts();
@@ -1332,6 +1251,7 @@
         }
     }
 
+    // Build all checkbox filter controls for the Browse view
     function renderFilterControls() {
         renderCheckboxGroup("gender-filters", getUniqueValues("gender"), "gender");
         renderCheckboxGroup("category-filters", getUniqueValues("category"), "category");
@@ -1339,6 +1259,7 @@
         renderColorCheckboxGroup();
     }
 
+    // Render a standard checkbox group such as gender, category, or size
     function renderCheckboxGroup(containerId, values, groupName) {
         let container = document.getElementById(containerId);
         let html = "";
@@ -1359,6 +1280,7 @@
         addFilterCheckboxListeners();
     }
 
+    // Render color filter checkboxes with visible color dots
     function renderColorCheckboxGroup() {
         let colors = getAllColors();
         let container = document.getElementById("color-filters");
@@ -1376,6 +1298,7 @@
         addFilterCheckboxListeners();
     }
 
+    // Attach change events to all filter checkboxes
     function addFilterCheckboxListeners() {
         let checkboxes = document.querySelectorAll(".filter-checkbox");
 
@@ -1387,6 +1310,7 @@
         }
     }
 
+    // Add or remove a selected filter value from app state
     function updateFilterState(groupName, value, shouldAdd) {
         let currentValues = appState.filters[groupName];
 
@@ -1406,6 +1330,7 @@
         }
     }
 
+    // Clear every selected filter and refresh the browse results
     function clearAllFilters() {
         appState.filters.gender = [];
         appState.filters.category = [];
@@ -1420,6 +1345,7 @@
         renderBrowseView();
     }
 
+    // Render the Browse view using the current filters and sort order
     function renderBrowseView() {
         let matchingProducts = getMatchingProducts();
         let sortedProducts = sortProducts(matchingProducts, appState.sortBy);
@@ -1480,6 +1406,7 @@
         }
     }
 
+    // Render the active filter pills shown above the browse results
     function renderActiveFilters() {
         let container = document.getElementById("active-filters");
         let html = "";
@@ -1499,6 +1426,7 @@
         }
     }
 
+    // Build removable filter pill buttons for one filter group
     function buildFilterPills(groupName, values) {
         let html = "";
 
@@ -1516,6 +1444,7 @@
         return html;
     }
 
+    // Remove one active filter, uncheck its checkbox, and refresh results
     function removeSingleFilter(groupName, value) {
         updateFilterState(groupName, value, false);
 
@@ -1529,6 +1458,7 @@
         renderBrowseView();
     }
 
+    // Render the selected product in the Single Product view
     function renderSingleProductView() {
         let container = document.getElementById("single-product-content");
         let product = getProductById(appState.selectedProductId);
@@ -1635,6 +1565,7 @@
         });
     }
 
+    // Build size selection buttons for the Single Product view
     function buildSizeButtons(sizes) {
         let html = "";
 
@@ -1650,6 +1581,7 @@
         return html;
     }
 
+    // Build color selection buttons for the Single Product view
     function buildColorButtons(colors) {
         let html = "";
 
@@ -1668,6 +1600,7 @@
         return html;
     }
 
+    // Render cart items, shipping controls, and order totals
     function renderCartView() {
         let container = document.getElementById("cart-content");
         let merchandiseTotal = getCartMerchandiseTotal();
@@ -1765,6 +1698,7 @@
         }
     }
 
+    // Build one row of cart HTML for a single cart item
     function buildCartRow(cartItem, index) {
         let product = getProductById(cartItem.id);
         let colorHex = cartItem.colorHex;
@@ -1788,6 +1722,7 @@
         return html;
     }
 
+    // Build the shipping method dropdown using the selected shipping type
     function buildShippingSelect() {
         let disabledText = "";
         if (appState.cart.length === 0) {
@@ -1802,6 +1737,7 @@
         return html;
     }
 
+    // Build the shipping destination dropdown using the selected destination
     function buildDestinationSelect() {
         let disabledText = "";
         if (appState.cart.length === 0) {
@@ -1816,6 +1752,7 @@
         return html;
     }
 
+    // Build one option tag and mark it selected when appropriate
     function buildOptionHtml(optionValue, currentValue) {
         let selectedText = '';
         if (optionValue === currentValue) {
@@ -1825,6 +1762,7 @@
         return '<option value="' + optionValue + '"' + selectedText + '>' + optionValue + '</option>';
     }
 
+    // Store the chosen product and switch to the Single Product view
     function openSingleProduct(productId) {
         appState.selectedProductId = productId;
         appState.selectedSize = "";
@@ -1833,6 +1771,7 @@
         showView("single");
     }
 
+    // Add a product to the cart or increase quantity if the same item already exists
     function addProductToCartById(productId, quantity, selectedSize, selectedColor) {
         let product = getProductById(productId);
 
@@ -1884,6 +1823,7 @@
         alert(product.name + " has been added to the cart.");
     }
 
+    // Find an existing cart item that matches product, size, and color
     function findExistingCartItem(productId, size, colorName) {
         for (let i = 0; i < appState.cart.length; i++) {
             if (appState.cart[i].id === productId && appState.cart[i].size === size && appState.cart[i].colorName === colorName) {
@@ -1894,6 +1834,7 @@
         return -1;
     }
 
+    // Remove one item from the cart by its array index
     function removeCartItem(index) {
         let newCart = [];
 
@@ -1909,6 +1850,7 @@
         showView("cart");
     }
 
+    // Simulate checkout by clearing the cart and returning to the Home view
     function checkoutCart() {
         if (appState.cart.length === 0) {
             return;
@@ -1923,6 +1865,7 @@
         showView("home");
     }
 
+    // Update the cart badge in the header with the total quantity of items
     function updateCartCount() {
         let totalQuantity = 0;
 
@@ -1933,6 +1876,7 @@
         document.getElementById("cart-count").textContent = totalQuantity;
     }
 
+    // Return products that match all currently selected filters
     function getMatchingProducts() {
         let matchingProducts = [];
 
@@ -1945,6 +1889,7 @@
         return matchingProducts;
     }
 
+    // Check whether one product passes the selected filter rules
     function productMatchesFilters(product) {
         for (let i = 0; i < appState.filters.gender.length; i++) {
             if (product.gender !== appState.filters.gender[i]) {
@@ -1973,6 +1918,7 @@
         return true;
     }
 
+    // Check whether a product includes a particular color name
     function productHasColor(product, colorName) {
         for (let i = 0; i < product.color.length; i++) {
             if (product.color[i].name === colorName) {
@@ -1983,6 +1929,7 @@
         return false;
     }
 
+    // Return a sorted copy of the product list based on the selected sort mode
     function sortProducts(list, sortBy) {
         let copiedList = copyProductArray(list);
 
@@ -2015,6 +1962,7 @@
         return copiedList;
     }
 
+    // Copy an array of products so sorting does not modify the original array
     function copyProductArray(sourceArray) {
         let newArray = [];
 
@@ -2025,6 +1973,7 @@
         return newArray;
     }
 
+    // Pick featured products from the highest total sales values
     function getFeaturedProducts() {
         let copiedProducts = copyProductArray(products);
 
@@ -2051,6 +2000,7 @@
         return featured;
     }
 
+    // Get sorted unique values for a product field such as category or gender
     function getUniqueValues(fieldName) {
         let values = [];
 
@@ -2064,6 +2014,7 @@
         return sortStringArray(values);
     }
 
+    // Gather every unique size from all products
     function getAllSizes() {
         let sizes = [];
 
@@ -2078,6 +2029,7 @@
         return sortStringArray(sizes);
     }
 
+    // Gather every unique color object from all products
     function getAllColors() {
         let colors = [];
 
@@ -2092,6 +2044,7 @@
         return sortColorArray(colors);
     }
 
+    // Sort an array of strings into ascending order
     function sortStringArray(values) {
         let newValues = [];
 
@@ -2115,6 +2068,7 @@
         return newValues;
     }
 
+    // Sort color objects alphabetically by color name
     function sortColorArray(colors) {
         let newColors = [];
 
@@ -2138,6 +2092,7 @@
         return newColors;
     }
 
+    // Check whether an array already contains a value
     function arrayContainsValue(array, value) {
         for (let i = 0; i < array.length; i++) {
             if (array[i] === value) {
@@ -2148,6 +2103,7 @@
         return false;
     }
 
+    // Check whether a color object array already contains a color name
     function colorArrayContainsName(colors, name) {
         for (let i = 0; i < colors.length; i++) {
             if (colors[i].name === name) {
@@ -2158,6 +2114,7 @@
         return false;
     }
 
+    // Find one product by its product ID
     function getProductById(productId) {
         for (let i = 0; i < products.length; i++) {
             if (products[i].id === productId) {
@@ -2168,6 +2125,7 @@
         return null;
     }
 
+    // Get the first color hex code for a product or use a fallback color
     function getProductColorHex(product) {
         if (product.color.length > 0) {
             return product.color[0].hex;
@@ -2176,6 +2134,7 @@
         return "#dbeafe";
     }
 
+    // Get the first color name for a product or use a fallback label
     function getProductColorName(product) {
         if (product.color.length > 0) {
             return product.color[0].name;
@@ -2184,6 +2143,7 @@
         return "N/A";
     }
 
+    // Find the hex code that matches a chosen product color name
     function getColorHexByName(product, colorName) {
         for (let i = 0; i < product.color.length; i++) {
             if (product.color[i].name === colorName) {
@@ -2194,6 +2154,7 @@
         return getProductColorHex(product);
     }
 
+    // Calculate the merchandise subtotal for all items in the cart
     function getCartMerchandiseTotal() {
         let total = 0;
 
@@ -2204,6 +2165,7 @@
         return total;
     }
 
+    // Calculate shipping based on subtotal, method, destination, and free-shipping rules
     function calculateShippingCost(merchandiseTotal, shippingType, destination, isCartEmpty) {
         if (isCartEmpty) {
             return 0;
@@ -2244,6 +2206,7 @@
         return 0;
     }
 
+    // Calculate tax only when the destination is Canada and the cart is not empty
     function calculateTaxAmount(merchandiseTotal, destination, isCartEmpty) {
         if (isCartEmpty) {
             return 0;
@@ -2256,10 +2219,12 @@
         return 0;
     }
 
+    // Format a number as currency with two decimal places
     function formatCurrency(amount) {
         return "$" + amount.toFixed(2);
     }
 
+    // Capitalize the first letter of a word for display purposes
     function capitalizeWord(word) {
         if (word.length === 0) {
             return "";
@@ -2268,15 +2233,15 @@
         return word.charAt(0).toUpperCase() + word.substring(1);
     }
 
+    // Display the About popup dialog
     function openAboutDialog() {
         document.getElementById("about-overlay").style.display = "flex";
     }
 
+    // Hide the About popup dialog
     function closeAboutDialog() {
         document.getElementById("about-overlay").style.display = "none";
     }
 </script>
-
-
 </body>
 </html>
