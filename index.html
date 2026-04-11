@@ -709,6 +709,21 @@
             margin-top: 10px;
         }
 
+        /* Category image inside each Home category card */
+        .category-photo {
+         width: 100%;
+         height: 120px;
+         object-fit: cover;
+          display: block;
+         border-radius: 16px;
+         margin: 0 auto 12px;
+         border: 1px solid #d7e0ec;
+        }
+
+        .category-button {
+        width: 100%;
+        }
+
         footer {
             background-color: #dce9f8;
             border-top: 2px solid #b8c7db;
@@ -869,7 +884,7 @@
     <!-- Header with logo, navigation, and cart button -->
     <header>
         <div class="header-inner">
-            <div class="logo">StyleShelf</div>
+            <div class="logo">Super Store</div>
             <nav>
                 <button id="nav-home" class="nav-button active" type="button">Home</button>
                 <button id="nav-browse" class="nav-button" type="button">Browse</button>
@@ -1168,24 +1183,28 @@
     }
 
     // Render clickable category cards on the Home view
-    function renderHomeCategories() {
-        let categoryGrid = document.getElementById("home-category-grid");
-        let categories = getUniqueValues("category");
-        let html = "";
-        let limit = categories.length;
+ // Render the Home page category cards with images
+function renderHomeCategories() {
+    let categoryGrid = document.getElementById("home-category-grid");
+    let categories = getUniqueValues("category");
+    let html = "";
+    let limit = categories.length;
 
-        if (limit > 8) {
-            limit = 8;
-        }
+    if (limit > 8) {
+        limit = 8;
+    }
 
-        for (let i = 0; i < limit; i++) {
-            html += '<button class="category-card category-button" type="button" value="' + categories[i] + '">';
-            html += '<div class="category-icon"></div>';
-            html += '<div class="category-name">' + categories[i] + '</div>';
-            html += '</button>';
-        }
+    for (let i = 0; i < limit; i++) {
+        let imagePath = getCategoryImage(categories[i]);
 
-        categoryGrid.innerHTML = html;
+        html += '<button class="category-card category-button" type="button" value="' + categories[i] + '">';
+        html += '<img class="category-photo" src="' + imagePath + '" alt="' + categories[i] + '">';
+        html += '<div class="category-name">' + categories[i] + '</div>';
+        html += '</button>';
+    }
+
+    categoryGrid.innerHTML = html;
+
 
         let categoryButtons = document.querySelectorAll(".category-button");
         for (let i = 0; i < categoryButtons.length; i++) {
@@ -1205,6 +1224,36 @@
                 showView("browse");
             });
         }
+    }
+
+    // Return the image path for one Home category card
+    function getCategoryImage(categoryName) {
+        if (categoryName === "Accessories") {
+            return "images/accessories.jpg";
+        }
+        else if (categoryName === "Bottoms") {
+            return "images/bottoms.jpg";
+        }
+        else if (categoryName === "Dresses") {
+            return "images/dresses.jpg";
+        }
+        else if (categoryName === "Intimates") {
+            return "images/CENSORED.jpg";
+        }
+        else if (categoryName === "Jumpsuits") {
+            return "images/jumpsuits.jpg";
+        }
+        else if (categoryName === "Loungewear") {
+            return "images/loungewear.jpg";
+        }
+        else if (categoryName === "Outerwear") {
+            return "images/outerwear.jpg";
+        }
+        else if (categoryName === "Shoes") {
+            return "images/shoes.jpg";
+        }
+
+        return "images/default.jpg";
     }
 
     // Render featured product cards on the Home view
